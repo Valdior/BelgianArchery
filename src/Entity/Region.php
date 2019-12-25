@@ -104,12 +104,12 @@ class Region
         return $this;
     }
 
-    public function getLeague(): ?Lead
+    public function getLeague(): ?League
     {
         return $this->league;
     }
 
-    public function setLeague(?Lead $league): self
+    public function setLeague(?League $league): self
     {
         $this->league = $league;
 

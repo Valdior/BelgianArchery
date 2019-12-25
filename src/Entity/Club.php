@@ -59,6 +59,11 @@ class Club
      */
     private $tournaments;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Archer")
+     */
+    private $owner;
+
     public function __construct()
     {
         $this->archer = new ArrayCollection();
@@ -220,6 +225,18 @@ class Club
                 $tournament->setOrganizer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOwner(): Archer
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(Archer $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

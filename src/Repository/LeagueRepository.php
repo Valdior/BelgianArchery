@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Lead;
+use App\Entity\League;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -12,11 +12,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Lead[]    findAll()
  * @method Lead[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LeadRepository extends ServiceEntityRepository
+class LeagueRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Lead::class);
+        parent::__construct($registry, League::class);
     }
 
     // /**
