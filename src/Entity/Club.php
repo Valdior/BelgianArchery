@@ -66,8 +66,13 @@ class Club
 
     public function __construct()
     {
-        $this->archer = new ArrayCollection();
+        $this->members = new ArrayCollection();
         $this->tournaments = new ArrayCollection();
+    }
+
+    public function __ToString()
+    {
+        return $this->getAcronym() . ' - ' . $this->getName();
     }
 
     public function getId(): ?int
@@ -171,8 +176,8 @@ class Club
     public function getMembersInactif(): Collection
     {
         return $this->members->filter(
-            function($entry) {
-               return in_array($entry->getAffiliateEnd(), !null);
+            function(Affiliate $affiliate) {
+                return $affiliate->getAffiliateEnd() != null;
             }
         ); 
     }
@@ -229,12 +234,12 @@ class Club
         return $this;
     }
 
-    public function getOwner(): Archer
+    public function getOwner(): ?Archer
     {
         return $this->owner;
     }
 
-    public function setOwner(Archer $owner): self
+    public function setOwner(?Archer $owner): self
     {
         $this->owner = $owner;
 

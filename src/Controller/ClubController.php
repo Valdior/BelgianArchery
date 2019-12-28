@@ -69,7 +69,7 @@ class ClubController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('club_index');
+            return $this->redirectToRoute('club_show', ['id' => $club->getId()]);
         }
 
         return $this->render('club/edit.html.twig', [

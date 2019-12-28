@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Archer
 {
     /**
+     * @return integer
+     */
+    public const ACTIVE = "Actif";
+
+    /**
+     * @return integer
+     */
+    public const INACTIVE = "Inactif"; 
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -36,17 +46,33 @@ class Archer
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Affiliate", mappedBy="archer")
      */
-    private $affiliates;
+    private $affiliations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="archer")
      */
-    private $participants;
+    private $competitions;
 
     public function __construct()
     {
-        $this->affiliates = new ArrayCollection();
-        $this->participants = new ArrayCollection();
+        $this->status = self::ACTIVE;
+        $this->affiliations = new ArrayCollection();
+        $this->competitions = new ArrayCollection();        
+    }
+
+    public static function getStatusList()
+    {
+        return [self::INACTIVE, self::ACTIVE];
+    }  
+
+    public function getFullname()
+    {
+        return $this->getlastname() . ' ' . $this->getFirstname(); 
+    }
+    
+    public function __ToString()
+    {
+        return $this->getFullname(); 
     }
 
     public function getId(): ?int
@@ -78,14 +104,17 @@ class Archer
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus()
     {
-        return $this->status;
+        return self::getStatusList()[$this->status]; 
     }
 
-    public function setStatus(int $status): self
+    public function setStatus($status): self
     {
-        $this->status = $status;
+        if (!in_array($status, self::getStatusList())) {
+            throw new \InvalidArgumentException("Invalid status");
+        }
+        $this->status = array_search($status, self::getStatusList());
 
         return $this;
     }
@@ -93,56 +122,56 @@ class Archer
     /**
      * @return Collection|Affiliate[]
      */
-    public function getAffiliates(): Collection
+    public function getAffiliations(): Collection
     {
-        return $this->affiliates;
+        return $this->affiliations;
     }
 
-    public function addAffiliate(Affiliate $affiliate): self
+    public function addAffiliation(Affiliate $affiliation): self
     {
-        if (!$this->affiliates->contains($affiliate)) {
-            $this->affiliates[] = $affiliate;
-            $affiliate->setArcher($this);
+        if (!$this->affiliations->contains($affiliation)) {
+            $this->affiliations[] = $affiliation;
+            $affiliation->setArcher($this);
         }
 
         return $this;
     }
 
-    public function removeAffiliate(Affiliate $affiliate): self
+    public function removeAffiliation(Affiliate $affiliation): self
     {
-        if ($this->affiliates->contains($affiliate)) {
-            $this->affiliates->removeElement($affiliate);
+        if ($this->affiliations->contains($affiliation)) {
+            $this->affiliations->removeElement($affiliation);
             // set the owning side to null (unless already changed)
-            if ($affiliate->getArcher() === $this) {
-                $affiliate->setArcher(null);
+            if ($affiliation->getArcher() === $this) {
+                $affiliation->setArcher(null);
             }
         }
 
         return $this;
-    }
+    } 
 
     /**
      * @return Collection|Participant[]
      */
-    public function getParticipants(): Collection
+    public function getCompetitions(): Collection
     {
-        return $this->participants;
+        return $this->competitions;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function addCompetition(Participant $participant): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
+        if (!$this->competitions->contains($participant)) {
+            $this->competitions[] = $participant;
             $participant->setArcher($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participant $participant): self
+    public function removeCompetition(Participant $participant): self
     {
-        if ($this->participants->contains($participant)) {
-            $this->participants->removeElement($participant);
+        if ($this->competitions->contains($participant)) {
+            $this->competitions->removeElement($participant);
             // set the owning side to null (unless already changed)
             if ($participant->getArcher() === $this) {
                 $participant->setArcher(null);

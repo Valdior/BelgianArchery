@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Archer{% endblock %}
+
+{% block body %}
+    <div class="row"> 
+        <section class="col-md-12">
+            <h1>{{ archer.fullname }}</h1>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Lastname</th>
+                        <td>{{ archer.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Firstname</th>
+                        <td>{{ archer.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ archer.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    
+    <div class="row">        
+        <section class="col-md-6">
+        <h3>Historique des clubs</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Club</th>
+                        <th>Numéro d'affiliation</th>
+                        <th>Date inscription</th>
+                        <th>Date de fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for affiliation in archer.affiliations | reverse %}
+                    <tr>
+                        <td>{{ affiliation.club.name }}</td>
+                        <td>{{ affiliation.affiliatenumber }}</td>
+                        <td>{{ affiliation.affiliatesince | date("d/m/y") }}</td>
+                        {% if affiliation.affiliateend is null %}
+                        <td>Actif</td>
+                        {% else %}
+                        <td>{{ affiliation.affiliateend | date("d/m/y") }}</td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section class="col-md-6">
+        <h3>Historique des compétitions</h3>        
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Organisateur</th>
+                        <th>Catégorie</th>
+                        <th>10</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for competition in archer.competitions | reverse %}
+                    <tr>
+                        <td>{{ competition.peloton.tournament.organizer.acronym }}</td>
+                        <td>{{ competition.category.acronym }}</td>
+                        <td>{{ competition.numberoften }}</td>
+                        <td>{{ competition.points }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+
+    <a class="btn btn-info" href="{{ path('archer_index') }}">back to list</a>
+{% if is_granted('ROLE_ADMIN') %}    
+    <a class="btn btn-primary" href="{{ path('archer_edit', {'id': archer.id}) }}">edit</a>
+    <a class="btn btn-warning" href="{{ path('archer_affiliation', {'id': archer.id}) }}">transfert</a>
+    {% if archer.status == "Actif" %}
+    <a class="btn btn-danger" href="{{ path('archer_affiliation_stop', {'id': archer.id}) }}">arrête</a>
+    {% endif %}
+
+    
+{% endif %}
+{{ include('archer/_delete_form.html.twig') }}
+{% endblock %}

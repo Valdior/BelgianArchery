@@ -9,7 +9,8 @@ security:
         App\Entity\User: bcrypt
     role_hierarchy:
         ROLE_ARCHER:      ROLE_USER
-        ROLE_ADMIN:       ROLE_ARCHER
+        ROLE_OWNER_CLUB:  ROLE_ARCHER
+        ROLE_ADMIN:       ROLE_OWNER_CLUB
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     firewalls:
         dev:

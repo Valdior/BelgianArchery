@@ -22,6 +22,12 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
     public const CLUB_ADS = "club-ads";
     public const CLUB_CMA = "club-cma";
     public const CLUB_GSR = "club-gsr";
+    public const CLUB_ABA = "club-aba";
+    public const CLUB_HAC = "club-hac";
+    public const CLUB_LFU = "club-lfu";
+    public const CLUB_GAU = "club-gau";
+    public const CLUB_ANT = "club-ant";
+    public const CLUB_PAC = "club-pac";
     
     public function load(ObjectManager $manager)
     {
@@ -49,6 +55,8 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setEmail('aba@lfbta.be');
         $manager->persist($club);
 
+        $this->addReference(self::CLUB_ABA, $club);
+
         $club = new Club();
         $club->setName("Cardinal Mercier Archery");
         $club->setAcronym("CMA");
@@ -74,6 +82,8 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setRegion($this->getReference(RegionFixtures::REGION_BRABAN));
         $club->setEmail('lfu@lftba.be');
         $manager->persist($club);
+
+        $this->addReference(self::CLUB_LFU, $club);
 
         $club = new Club();
         $club->setName("Flèche d’Or d’Anderlecht");
@@ -117,6 +127,8 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setEmail('adlardi@hotmail.com');
         $manager->persist($club);
 
+        $this->addReference(self::CLUB_GAU, $club);
+
         $club = new Club();
         $club->setName("Confrérie St Sébastien Antoing");
         $club->setAcronym("ANT");
@@ -124,6 +136,8 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setRegion($this->getReference(RegionFixtures::REGION_HAINAUT));
         $club->setEmail('eddy.wattiez@live.fr');
         $manager->persist($club);
+
+        $this->addReference(self::CLUB_ANT, $club);
 
         $club = new Club();
         $club->setName("La Fine Equipe Ellezelles");
@@ -198,6 +212,8 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setRegion($this->getReference(RegionFixtures::REGION_HAINAUT));
         $club->setEmail('secretaire@pac-peruwelz.be');
         $manager->persist($club);
+
+        $this->addReference(self::CLUB_PAC, $club);
 
         $club = new Club();
         $club->setName("Les Francs Archers de Chimay");
@@ -326,6 +342,8 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setRegion($this->getReference(RegionFixtures::REGION_LXG));
         $club->setEmail('mu.alberty@skynet.be');
         $manager->persist($club);
+
+        $this->addReference(self::CLUB_HAC, $club);       
 
         $club = new Club();
         $club->setName("Les Flèches Gaumaises - Virton");

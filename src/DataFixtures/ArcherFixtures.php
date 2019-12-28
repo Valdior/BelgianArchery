@@ -18,7 +18,7 @@ class ArcherFixtures extends Fixture
         $archer = new Archer();
         $archer->setLastname("Maréchal");
         $archer->setFirstname("Pierre");
-        $archer->setStatus(1);
+        $archer->setStatus(Archer::ACTIVE);
         $manager->persist($archer);
 
         $this->addReference(self::ARCHER_MP, $archer);
@@ -26,7 +26,7 @@ class ArcherFixtures extends Fixture
         $archer = new Archer();
         $archer->setLastname("Gentille");
         $archer->setFirstname("Carmelo");
-        $archer->setStatus(1);
+        $archer->setStatus(Archer::ACTIVE);
         $manager->persist($archer);
 
         $this->addReference(self::ARCHER_GC, $archer);
@@ -34,7 +34,7 @@ class ArcherFixtures extends Fixture
         $archer = new Archer();
         $archer->setLastname("Lorquet");
         $archer->setFirstname("Philippe");
-        $archer->setStatus(1);
+        $archer->setStatus(Archer::ACTIVE);
         $manager->persist($archer);
 
         $this->addReference(self::ARCHER_LP, $archer);
@@ -42,7 +42,7 @@ class ArcherFixtures extends Fixture
         $archer = new Archer();
         $archer->setLastname("Bardoul");
         $archer->setFirstname("Andy");
-        $archer->setStatus(1);
+        $archer->setStatus(Archer::ACTIVE);
         $manager->persist($archer);
 
         $this->addReference(self::ARCHER_BA, $archer);

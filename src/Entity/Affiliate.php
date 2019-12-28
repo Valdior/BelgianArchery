@@ -101,12 +101,12 @@ class Affiliate
         return $this;
     }
 
-    public function getArcher(): ?Archer
+    public function getArcher(): Archer
     {
         return $this->archer;
     }
 
-    public function setArcher(?Archer $archer): self
+    public function setArcher(Archer $archer): self
     {
         $this->archer = $archer;
 

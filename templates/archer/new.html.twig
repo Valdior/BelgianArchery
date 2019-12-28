@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Archer{% endblock %}
+
+{% block body %}
+    <h1>Create new Archer</h1>
+
+    {{ include('archer/_form.html.twig') }}
+
+    <a href="{{ path('archer_index') }}">back to list</a>
+{% endblock %}

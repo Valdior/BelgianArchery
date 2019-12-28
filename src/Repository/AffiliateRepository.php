@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Archer;
 use App\Entity\Affiliate;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Affiliate|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,21 @@ class AffiliateRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Affiliate::class);
+    }
+
+    /**
+     * @return Affiliate[] Returns an array of Affiliate objects
+     */
+    public function findLastAffiliationByArcher(Archer $archer)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.affiliateEnd is null')
+            ->andWhere('a.archer = :val')
+                ->setParameter('val', $archer->getId())
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     // /**

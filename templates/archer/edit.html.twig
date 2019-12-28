@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Archer{% endblock %}
+
+{% block body %}
+    <h1>Edit Archer</h1>
+
+    {{ include('archer/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('archer_index') }}">back to list</a>
+
+    {{ include('archer/_delete_form.html.twig') }}
+{% endblock %}
