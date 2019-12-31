@@ -19,32 +19,48 @@ class ParticipantRepository extends ServiceEntityRepository
         parent::__construct($registry, Participant::class);
     }
 
-    // /**
-    //  * @return Participant[] Returns an array of Participant objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @var Participant[]
+     * @return Participant[] Returns an array of Participant objects
+     */
+    public function ranking($idTournament): Array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+                    ->leftJoin('p.peloton', 'pel')
+                    ->andWhere('pel.tournament = :val')
+                        ->setParameter('val', $idTournament)
+                    ->OrderBy('p.category', 'ASC')
+                        ->addOrderBy('p.points', 'DESC')
+                        ->addOrderBy('p.numberOfX', 'DESC')
+                        ->addOrderBy('p.numberOfTen', 'DESC')
+                        ->addOrderBy('p.numberOfNine', 'DESC')
+                    ->getQuery()
+                    ->getResult()
+                ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Participant
+    /**
+     * @var boolean
+     * @return boolean Checks whether the participant is already booked in the peleton
+     */
+    public function isAlreadyRegistered(Participant $participant)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $result = $this->createQueryBuilder('p')
+                    ->andWhere('p.archer = :archer')
+                        ->setParameter('archer', $participant->getArcher())
+                    ->andWhere('p.peloton = :peloton')
+                        ->setParameter('peloton', $participant->getPeloton())
+                    ->getQuery()
+                    ->getScalarResult()
+                ;
+
+        if(count($result) > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    */
 }

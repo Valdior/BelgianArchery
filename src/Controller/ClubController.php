@@ -21,6 +21,7 @@ class ClubController extends AbstractController
     public function index(ClubRepository $clubRepository): Response
     {
         return $this->render('club/index.html.twig', [
+            'current_menu' => 'club',
             'clubs' => $clubRepository->findAll(),
         ]);
     }
@@ -43,6 +44,7 @@ class ClubController extends AbstractController
         }
 
         return $this->render('club/new.html.twig', [
+            'current_menu' => 'club',
             'club' => $club,
             'form' => $form->createView(),
         ]);
@@ -54,6 +56,7 @@ class ClubController extends AbstractController
     public function show(Club $club): Response
     {
         return $this->render('club/show.html.twig', [
+            'current_menu' => 'club',
             'club' => $club,
         ]);
     }
@@ -73,6 +76,7 @@ class ClubController extends AbstractController
         }
 
         return $this->render('club/edit.html.twig', [
+            'current_menu' => 'club',
             'club' => $club,
             'form' => $form->createView(),
         ]);

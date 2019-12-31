@@ -7,16 +7,7 @@
         <section class="col-md-12">
             <h1>{{ archer.fullname }}</h1>
 
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endfor %}
-{% endfor %}
+            {{ include('layout/message.html.twig') }}
 
             <table class="table">
                 <tbody>
@@ -84,6 +75,7 @@
                 <tbody>
                 {% for competition in archer.competitions | reverse %}
                     <tr>
+                        {# TODO: Prend trop de requetes. Voir comment faire autrement plus tard #}
                         <td>{{ competition.peloton.tournament.organizer.acronym }}</td>
                         <td>{{ competition.category.acronym }}</td>
                         <td>{{ competition.numberoften }}</td>

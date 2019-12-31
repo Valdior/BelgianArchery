@@ -8,9 +8,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>StartDate</th>
-                <th>EndDate</th>
+                <th>Organisateur</th>
+                <th>Date début</th>
+                <th>Date fin</th>
                 <th>Type</th>
                 <th>actions</th>
             </tr>
@@ -18,13 +18,15 @@
         <tbody>
         {% for tournament in tournaments %}
             <tr>
-                <td>{{ tournament.id }}</td>
-                <td>{{ tournament.startDate ? tournament.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tournament.endDate ? tournament.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</td>
+                <td>{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</td>
+                <td>{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</td>
                 <td>{{ tournament.type }}</td>
                 <td>
                     <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
+                    {% endif %} 
                 </td>
             </tr>
         {% else %}
@@ -35,5 +37,7 @@
         </tbody>
     </table>
 
+{% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('tournament_new') }}">Create new</a>
+{% endif %}  
 {% endblock %}

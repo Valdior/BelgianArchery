@@ -5,16 +5,7 @@
 {% block body %}
     <h1>Archer index</h1>
 
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endfor %}
-{% endfor %}
+    {{ include('layout/message.html.twig') }}
 
     <table class="table">
         <thead>

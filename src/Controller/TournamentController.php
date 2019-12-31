@@ -21,7 +21,8 @@ class TournamentController extends AbstractController
     public function index(TournamentRepository $tournamentRepository): Response
     {
         return $this->render('tournament/index.html.twig', [
-            'tournaments' => $tournamentRepository->findAll(),
+            'current_menu' => 'tournament',
+            'tournaments' => $tournamentRepository->findBy(array(), array('startDate' => 'ASC'))
         ]);
     }
 
@@ -43,6 +44,7 @@ class TournamentController extends AbstractController
         }
 
         return $this->render('tournament/new.html.twig', [
+            'current_menu' => 'tournament',
             'tournament' => $tournament,
             'form' => $form->createView(),
         ]);
@@ -54,6 +56,7 @@ class TournamentController extends AbstractController
     public function show(Tournament $tournament): Response
     {
         return $this->render('tournament/show.html.twig', [
+            'current_menu' => 'tournament',
             'tournament' => $tournament,
         ]);
     }
@@ -73,6 +76,7 @@ class TournamentController extends AbstractController
         }
 
         return $this->render('tournament/edit.html.twig', [
+            'current_menu' => 'tournament',
             'tournament' => $tournament,
             'form' => $form->createView(),
         ]);
@@ -90,5 +94,16 @@ class TournamentController extends AbstractController
         }
 
         return $this->redirectToRoute('tournament_index');
+    }
+
+    /**
+     * @Route("/{id}/ranking", name="tournament_ranking", methods="GET")
+     */
+    public function ranking(Tournament $tournament)
+    {
+        $participants = $this->getDoctrine()
+            ->getRepository(Participant::class)
+            ->ranking($tournament->getId());
+        return $this->render('tournament/ranking.html.twig', ['participants' => $participants]);
     }
 }

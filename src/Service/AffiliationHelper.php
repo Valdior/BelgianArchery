@@ -10,12 +10,12 @@ use Doctrine\ORM\EntityManagerInterface;
 class AffiliationHelper
 {
     /**
-     * @return AffiliateRepository
+     * @var AffiliateRepository
      */
     private $repo;
 
     /**
-     * @return EntityManagerInterface
+     * @var EntityManagerInterface
      */
     private $em;
 
