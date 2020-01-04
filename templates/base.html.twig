@@ -11,13 +11,9 @@
     <body>
         {% include('layout/nav.html.twig') %}
 
-        <div class="container-fluid">
-        <i class="fas fa-fish"></i>
-  <i class="fas fa-frog"></i>
-  <i class="fas fa-user-ninja vanished"></i>
-  <i class="fab fa-facebook"></i>
-        {% block body %}{% endblock %}
-        </div>
+        <main>
+            {% block body_content %}{% endblock %}
+        </main>
         {% block javascripts %}{% endblock %}
         {{ encore_entry_script_tags('app') }}
     </body>

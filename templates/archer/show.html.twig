@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/layout.html.twig' %}
 
 {% block title %}Archer{% endblock %}
 
@@ -63,6 +63,7 @@
 
         <section class="col-md-6">
         <h3>Historique des compétitions</h3>        
+        
             <table class="table">
                 <thead>
                     <tr>
@@ -75,6 +76,7 @@
                 <tbody>
                 {% for competition in archer.competitions | reverse %}
                     <tr>
+                        
                         {# TODO: Prend trop de requetes. Voir comment faire autrement plus tard #}
                         <td>{{ competition.peloton.tournament.organizer.acronym }}</td>
                         <td>{{ competition.category.acronym }}</td>
