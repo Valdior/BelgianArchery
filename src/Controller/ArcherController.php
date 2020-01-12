@@ -35,8 +35,12 @@ class ArcherController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // TODO : Comment faire pour l'admin ? 
+            $user = $this->getUser();
+            $user->setArcher($archer);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($archer);
+            $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('archer_index');

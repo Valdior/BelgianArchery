@@ -45,7 +45,7 @@ class User implements UserInterface
      * The below length depends on the "algorithm" you use for encoding
      * the password, but this works well with bcrypt.
      *
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
 
@@ -59,9 +59,25 @@ class User implements UserInterface
      */
     private $archer;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tokenPassword;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdTokenPasswordAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
+        $this->enabled = false;
     }
 
     // other properties and methods
@@ -159,5 +175,46 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTokenPassword(): ?string
+    {
+        return $this->tokenPassword;
+    }
+
+    public function setTokenPassword(?string $tokenPassword): self
+    {
+        $this->tokenPassword = $tokenPassword;
+
+        return $this;
+    }
+
+    public function getCreatedTokenPasswordAt(): ?\DateTimeInterface
+    {
+        return $this->createdTokenPasswordAt;
+    }
+
+    public function setCreatedTokenPasswordAt(?\DateTimeInterface $createdTokenPasswordAt): self
+    {
+        $this->createdTokenPasswordAt = $createdTokenPasswordAt;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function __ToString(): string
+    {
+        return $this->getUsername();
     }
 }

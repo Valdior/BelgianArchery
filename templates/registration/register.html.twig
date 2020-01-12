@@ -1,10 +1,7 @@
 {# templates/registration/register.html.twig #}
 
 {{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+    {{ form_widget(form) }}
 
-    <button type="submit" class="btn btn-lg btn-primary">Register!</button>
+    <button type="submit" class="btn btn-lg btn-primary">{{ 'registration.submit'|trans }}</button>
 {{ form_end(form) }}

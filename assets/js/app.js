@@ -15,6 +15,7 @@
 
 // app.js
 import '../css/app.scss';
+import '../css/login.scss';
 import $ from 'jquery';
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything

@@ -1,0 +1,25 @@
+{# templates/emails/registration.html.twig #}
+<h3>Tu l'as fait ! Tu t'es inscrit !</h3>
+
+<p>Bonjour {{ user.username }}! Vous êtes enregistré avec succès.</p>
+
+<p>TPour confirmer votre inscription avant de vous connecter, allez sur : <a href="{{ url('user_registration_confirm', {'token': user.tokenPassword, 'username': user.username}) }}">Confirmation</a>.</p>
+<p>Pour vous connecter, allez sur : <a href="{{ url('app_login') }}">Login</a>.</p>
+
+<p>Merci!</p>
+
+<p>===============================================</p>
+
+<h3>You did it! You registered!</h3>
+
+<p>Hi {{ user.username }}! You're successfully registered.</p>
+
+<p>To confirm your registration before logging in, go to: <a href="{{ url('user_registration_confirm', {'token': user.tokenPassword, 'username': user.username}) }}">Confirmation</a>.</p>
+<p>To login, go to: <a href="{{ url('app_login') }}">Login</a>.</p>
+
+<p>Thanks!</p>
+
+{# {% set confirmationUrl = url('user_registration_confirm', {'token': user.tokenPassword, 'username': user.username}) %}
+{{ 'registration.email.message'|trans({'%confirmationUrl%': url('user_registration_confirm', {'token': user.tokenPassword, 'username': user.username}), '%username%': user.username}) }} #}
+
+{# Makes an absolute URL to the /images/logo.png file #}

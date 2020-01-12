@@ -39,6 +39,11 @@ class Archer
     private $firstname;
 
     /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $birthdate;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $status;
@@ -55,9 +60,9 @@ class Archer
 
     public function __construct()
     {
-        $this->status = self::ACTIVE;
+        $this->status = 1;
         $this->affiliations = new ArrayCollection();
-        $this->competitions = new ArrayCollection();        
+        $this->competitions = new ArrayCollection();
     }
 
     public static function getStatusList()
@@ -104,6 +109,18 @@ class Archer
         return $this;
     }
 
+    public function getBirthdate(): ?\DateTimeZone
+    {
+        return $this->birthdate;
+    }
+
+    public function setBirthdate(\DateTimeZone $birthdate): self
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
     public function getStatus()
     {
         return self::getStatusList()[$this->status]; 
@@ -125,6 +142,14 @@ class Archer
     public function getAffiliations(): Collection
     {
         return $this->affiliations;
+    }
+
+    /**
+     * @return Affiliate
+     */
+    public function getCurrentAffiliation(): Affiliate
+    {
+        return $this->affiliations->last();
     }
 
     public function addAffiliation(Affiliate $affiliation): self
