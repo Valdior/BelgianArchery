@@ -1,0 +1,8 @@
+language: php
+matrix:
+  include:
+    - php: 7.2.24
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - $HOME/symfony-brigde/.phpunit
