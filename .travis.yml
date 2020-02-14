@@ -1,8 +1,5 @@
 language: php
 php: 
   - '7.2.24'
-cache:
-  directories:
-    - $HOME/.composer/cache/files
 install:
   - composer install
