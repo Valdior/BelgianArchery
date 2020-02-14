@@ -3,7 +3,7 @@
 
 <p>Bonjour {{ user.username }}! Vous êtes enregistré avec succès.</p>
 
-<p>TPour confirmer votre inscription avant de vous connecter, allez sur : <a href="{{ url('user_registration_confirm', {'token': user.tokenPassword, 'username': user.username}) }}">Confirmation</a>.</p>
+<p>Pour confirmer votre inscription avant de vous connecter, allez sur : <a href="{{ url('user_registration_confirm', {'token': user.tokenPassword, 'username': user.username}) }}">Confirmation</a>.</p>
 <p>Pour vous connecter, allez sur : <a href="{{ url('app_login') }}">Login</a>.</p>
 
 <p>Merci!</p>

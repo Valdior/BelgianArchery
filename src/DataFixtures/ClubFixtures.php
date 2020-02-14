@@ -508,7 +508,7 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setAcronym("ITW");
         $club->setNumber(414);
         $club->setRegion($this->getReference(RegionFixtures::REGION_LIEGE));
-        $club->setEmail('st.roland@gmx.fr');
+        $club->setEmail('saphir1963@hotmail.com');
         $club->setOwner($this->getReference(ArcherFixtures::ARCHER_LP));
         $club->setWebsite('http://whitebear.be');
         $manager->persist($club);

@@ -12,14 +12,54 @@ use Doctrine\ORM\Mapping as ORM;
 class Archer
 {
     /**
-     * @return integer
+     * @return string
      */
     public const ACTIVE = "Actif";
 
     /**
-     * @return integer
+     * @return string
      */
     public const INACTIVE = "Inactif"; 
+
+    /**
+     * @return string
+     */
+    public const GENDER_M = "Male";
+
+    /**
+     * @return string
+     */
+    public const GENDER_F = "Female";
+
+    /**
+     * @return string
+     */
+    public const ARC_N = "";
+
+    /**
+     * @return string
+     */
+    public const ARC_R = "Recurve";
+
+    /**
+     * @return string
+     */
+    public const ARC_C = "Compound";
+
+    /**
+     * @return string
+     */
+    public const ARC_L = "Longbow";
+
+    /**
+     * @return string
+     */
+    public const ARC_NR = "Nu Recurve";
+
+    /**
+     * @return string
+     */
+    public const ARC_NC = "Nu Compound";
 
     /**
      * @ORM\Id()
@@ -49,6 +89,11 @@ class Archer
     private $status;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $gender;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Affiliate", mappedBy="archer")
      */
     private $affiliations;
@@ -57,6 +102,16 @@ class Archer
      * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="archer")
      */
     private $competitions;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $defaultArc;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ArcherCategory")
+     */
+    private $defaultCategory;
 
     public function __construct()
     {
@@ -68,7 +123,17 @@ class Archer
     public static function getStatusList()
     {
         return [self::INACTIVE, self::ACTIVE];
-    }  
+    } 
+
+    public static function getGenderList()
+    {
+        return [self::GENDER_M, self::GENDER_F];
+    }
+
+    public static function getTypeArcList()
+    {
+        return [self::ARC_R, self::ARC_NR, self::ARC_C, self::ARC_NC, self::ARC_L];
+    } 
 
     public function getFullname()
     {
@@ -109,12 +174,12 @@ class Archer
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTimeZone
+    public function getBirthdate(): ?\DateTime
     {
         return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTimeZone $birthdate): self
+    public function setBirthdate(\DateTime $birthdate): self
     {
         $this->birthdate = $birthdate;
 
@@ -136,6 +201,30 @@ class Archer
         return $this;
     }
 
+    public function getGender()
+    {
+        if($this->gender === null)
+            return null;
+
+        return self::getGenderList()[$this->gender]; 
+    }
+
+    public function setGender($gender): self
+    {
+        if($gender === null)
+        {
+            $this->gender = null;
+            return $this;
+        }
+
+        if (!in_array($gender, self::getGenderList())) {
+            throw new \InvalidArgumentException("Invalid gender");
+        }
+        $this->gender = array_search($gender, self::getGenderList());
+
+        return $this;
+    }
+
     /**
      * @return Collection|Affiliate[]
      */
@@ -150,6 +239,14 @@ class Archer
     public function getCurrentAffiliation(): Affiliate
     {
         return $this->affiliations->last();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAffiliate(): bool
+    {
+        return ($this->affiliations->count() > 0);
     }
 
     public function addAffiliation(Affiliate $affiliation): self
@@ -202,6 +299,42 @@ class Archer
                 $participant->setArcher(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDefaultArc(): ?int
+    {
+        if($this->defaultArc === null)
+            return null;
+
+        return self::getTypeArcList()[$this->defaultArc];
+    }
+
+    public function setDefaultArc(?int $defaultArc): self
+    {
+        if($defaultArc === null)
+        {
+            $this->defaultArc = null;
+            return $this;
+        }
+
+        if (!in_array($defaultArc, self::getTypeArcList())) {
+            throw new \InvalidArgumentException("Invalid arc");
+        }
+        $this->defaultArc = array_search($defaultArc, self::getTypeArcList());
+
+        return $this;
+    }
+
+    public function getDefaultCategory(): ?ArcherCategory
+    {
+        return $this->defaultCategory;
+    }
+
+    public function setDefaultCategory(?ArcherCategory $defaultCategory): self
+    {
+        $this->defaultCategory = $defaultCategory;
 
         return $this;
     }

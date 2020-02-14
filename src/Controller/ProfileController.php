@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\ProfileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -35,7 +36,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/{username}", name="profile_edit")
      */
-    public function edit(Request $request, User $user)
+    public function edit(Request $request, User $user, TranslatorInterface $translator)
     {        
         $userConnected = $this->getUser();
         
@@ -47,12 +48,11 @@ class ProfileController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', $translator->trans('profile.show.updated'));
+            $this->addFlash('success', $translator->trans('profile.flash.updated'));
             return $this->redirectToRoute('profile');
         }
 

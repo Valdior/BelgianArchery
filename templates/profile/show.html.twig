@@ -35,7 +35,10 @@
                 </div>
 
                 {% if user.archer is not empty %}
-                {% set archer = user.archer %}
+                    {% set archer = user.archer %}
+                    {% if archer.isAffiliate %}
+                        {% set affiliate = archer.currentaffiliation %}
+                    {% endif %}   
                 <div class="row">
                     <div class="col-12">
                         <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
@@ -71,7 +74,7 @@
                                         <label style="font-weight:bold;">Birth Date</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.birthdate | date('F j Y') }}
+                                        {{ archer.birthdate is empty ? "" : archer.birthdate|date("F j Y") }}
                                     </div>
                                 </div>
                                 <hr />
@@ -81,7 +84,7 @@
                                         <label style="font-weight:bold;">Gender</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.birthdate | date('F j Y') }}
+                                        {{ archer.gender }}
                                     </div>
                                 </div>
                                 <hr />
@@ -92,7 +95,9 @@
                                         <label style="font-weight:bold;">Club Actuel</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.CurrentAffiliation.club.acronym }} - {{ archer.CurrentAffiliation.club.name }}
+                                        {% if affiliate is defined %}
+                                        {{ affiliate.club.fullname }}
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <hr />
@@ -124,7 +129,9 @@
                                         <label style="font-weight:bold;">Affiliate number</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.CurrentAffiliation.affiliatenumber }}
+                                        {% if affiliate is defined %}
+                                        {{ affiliate.affiliatenumber }}
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <hr />
@@ -133,7 +140,9 @@
                                         <label style="font-weight:bold;">Default Category</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.CurrentAffiliation.affiliatenumber }}
+                                        {% if affiliate is defined %}
+                                        {{ affiliate.club.fullname }}
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <hr />
@@ -142,7 +151,7 @@
                                         <label style="font-weight:bold;">Default Arc</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.CurrentAffiliation.affiliatenumber }}
+                                        {{ archer.defaultarc }}
                                     </div>
                                 </div>
                                 <hr />
@@ -151,7 +160,7 @@
                                         <label style="font-weight:bold;">Brevets</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.CurrentAffiliation.affiliatenumber }}
+                                        {{ archer.defaultcategory }}
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +171,6 @@
                                         <label style="font-weight:bold;">Other Info</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.CurrentAffiliation.affiliatenumber }}
                                     </div>
                                 </div>
                             </div>
@@ -175,11 +183,12 @@
                 </div>
             </div>
 
-                
-        <a class="btn btn-primary" href="{{ path('profile_edit', {'username': user.username}) }}">Change password</a>
+        <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">        
+            <a class="btn btn-primary" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-key"></i> Change password</a>
+            <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> Edit profil</a>
+        </div>
         {% else %}
         <a class="btn btn-primary" href="{{ path('archer_new') }}">Set Archer</a>
-
         {% endif %}
     </div>    
 </section>

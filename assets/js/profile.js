@@ -1,7 +1,8 @@
 import '../css/profile.scss';
+import $ from 'jquery';
 
 $(document).ready(function () {
-    $imgSrc = $('#imgProfile').attr('src');
+    let imgSrc = $('#imgProfile').attr('src');
     function readURL(input) {
 
         if (input.files && input.files[0]) {
@@ -15,6 +16,7 @@ $(document).ready(function () {
         }
     }
     $('#btnChangePicture').on('click', function () {
+        console.debug('btnChangePicture');
         // document.getElementById('profilePicture').click();
         if (!$('#btnChangePicture').hasClass('changing')) {
             $('#profilePicture').click();
@@ -22,6 +24,7 @@ $(document).ready(function () {
         else {
             // change
         }
+        console.debug('btnChangePicture stop');
     });
     $('#profilePicture').on('change', function () {
         readURL(this);
@@ -35,7 +38,7 @@ $(document).ready(function () {
         $('#btnChangePicture').removeClass('changing');
         $('#btnChangePicture').attr('value', 'Change');
         $('#btnDiscard').addClass('d-none');
-        $('#imgProfile').attr('src', $imgSrc);
+        $('#imgProfile').attr('src', imgSrc);
         $('#profilePicture').val('');
         // }
     });

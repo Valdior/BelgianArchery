@@ -72,6 +72,11 @@ class Club
 
     public function __ToString()
     {
+        return $this->getFullname() ;
+    }
+
+    public function getFullname()
+    {
         return $this->getAcronym() . ' - ' . $this->getName();
     }
 

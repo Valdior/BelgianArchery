@@ -7,6 +7,9 @@ form:
     password_confirmation: 'Répéter le mot de passe'
     new_password: 'Nouveau mot de passe'
     new_password_confirmation: 'Répéter le nouveau mot de passe'
+    lastname: 'Nom'
+    firstname: 'Prénom'
+    create: 'Créer'
 registration:
     check_email: 'Un e-mail a été envoyé à l''adresse "%email%"". Il contient un lien d''activation sur lequel il vous faudra cliquer afin d''activer votre compte.'
     confirmed: 'Félicitations %username%, votre compte est maintenant activé.'

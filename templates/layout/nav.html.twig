@@ -13,6 +13,7 @@
           </li>
           <li class="nav-item {% if current_menu is defined and current_menu == 'club' %}active{% endif %}"><a class="nav-link" href="{{ path('club_index')}}">Club</a></li>
           <li class="nav-item {% if current_menu is defined and current_menu == 'tournament' %}active{% endif %}"><a class="nav-link" href="{{ path('tournament_index')}}">Compétition</a></li>
+          <li class="nav-item {% if current_menu is defined and current_menu == 'about' %}active{% endif %}"><a class="nav-link" href="">About</a></li>
           {# <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Dropdown
@@ -39,13 +40,13 @@
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ app.user.username }} <span class="caret"></span>
+                <i class="fad fa-user"></i> {{ app.user.username }} <span class="caret"></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ path('profile') }}">Profile</a>
+                <a class="dropdown-item" href="{{ path('profile') }}"><i class="fad fa-id-card-alt"></i> Profile</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fad fa-sign-out"></i> Déconnexion</a>
               </div>
             </li>
             {% else %}
