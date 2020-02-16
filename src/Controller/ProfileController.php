@@ -58,6 +58,6 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
-        ]);     
+        ]);
     }
 }

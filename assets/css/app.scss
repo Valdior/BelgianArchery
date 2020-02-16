@@ -1,7 +1,13 @@
 // assets/css/global.scss
 
 // customize some Bootstrap variables
+
+
 $primary: darken(#428bca, 20%);
+
+:root {
+    --color: #121C42;
+}
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
@@ -15,3 +21,25 @@ $primary: darken(#428bca, 20%);
 @import '~@fortawesome/fontawesome-pro/scss/brands';
 @import '~@fortawesome/fontawesome-pro/scss/duotone';
 @import '~@fortawesome/fontawesome-pro/scss/light';
+
+@import 'tools/typography.scss';
+
+
+// Font face
+// ==================
+
+body {
+    font-family: $font;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--color);
+}
+
+.navbar-nav {
+    font-family: $font-alt;
+    font-size: 18px;
+}
+
+.navbar-brand {
+    font-family: $font-alt;
+}

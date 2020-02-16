@@ -179,7 +179,7 @@ class Archer
         return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTime $birthdate): self
+    public function setBirthdate(?\DateTime $birthdate): self
     {
         $this->birthdate = $birthdate;
 
@@ -303,7 +303,7 @@ class Archer
         return $this;
     }
 
-    public function getDefaultArc(): ?int
+    public function getDefaultArc()
     {
         if($this->defaultArc === null)
             return null;
@@ -311,7 +311,7 @@ class Archer
         return self::getTypeArcList()[$this->defaultArc];
     }
 
-    public function setDefaultArc(?int $defaultArc): self
+    public function setDefaultArc($defaultArc): self
     {
         if($defaultArc === null)
         {
