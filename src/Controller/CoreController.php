@@ -25,11 +25,11 @@ class CoreController extends AbstractController
      */
     public function test(NotifierInterface $notifier)
     {
-        // $notification = (new Notification('New Invoice', ['chat/slack']))
-        //     ->content('You got a new invoice for 150 EUR.');
+        $notification = (new Notification('New Invoice', ['chat/slack']))
+            ->content('You got a new invoice for 150 EUR.');
 
-        // // Send the notification to the recipient
-        // $notifier->send($notification);
+        // Send the notification to the recipient
+        $notifier->send($notification);
 
         // $notification = (new Notification('New Invoice', ['email']))
         //     ->content('You got a new invoice for 15 EUR.');

@@ -1,0 +1,14 @@
+easy_admin:
+   entities:
+       # List the entity class name you want to manage
+       - App\Entity\Affiliate
+       - App\Entity\Archer
+       - App\Entity\ArcherCategory
+       - App\Entity\Club
+       - App\Entity\League
+       - App\Entity\Location
+       - App\Entity\Participant
+       - App\Entity\Peloton
+       - App\Entity\Region
+       - App\Entity\Tournament
+       - App\Entity\User
