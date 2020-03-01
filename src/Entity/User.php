@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
@@ -64,19 +65,56 @@ class User implements UserInterface
     private $tokenPassword;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $createdTokenPasswordAt;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $enabled;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tokenRegistration;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdOn;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modifiedOn;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $tokenValidateOn;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $tokenPasswordValidateOn;
 
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
         $this->enabled = false;
+        
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function createDate()
+    {
+        $this->createdOn = new \DateTime();
+    }
+    
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->modifiedOn = new \DateTime();
     }
 
     // other properties and methods
@@ -215,5 +253,65 @@ class User implements UserInterface
     public function __ToString(): string
     {
         return $this->getUsername();
+    }
+
+    public function getTokenRegistration(): ?string
+    {
+        return $this->tokenRegistration;
+    }
+
+    public function setTokenRegistration(?string $tokenRegistration): self
+    {
+        $this->tokenRegistration = $tokenRegistration;
+
+        return $this;
+    }
+
+    public function getCreatedOn(): ?\DateTimeInterface
+    {
+        return $this->createdOn;
+    }
+
+    public function setCreatedOn(\DateTimeInterface $createdOn): self
+    {
+        $this->createdOn = $createdOn;
+
+        return $this;
+    }
+
+    public function getModifiedOn(): ?\DateTimeInterface
+    {
+        return $this->modifiedOn;
+    }
+
+    public function setModifiedOn(?\DateTimeInterface $modifiedOn): self
+    {
+        $this->modifiedOn = $modifiedOn;
+
+        return $this;
+    }
+
+    public function getTokenValidateOn(): ?\DateTimeInterface
+    {
+        return $this->tokenValidateOn;
+    }
+
+    public function setTokenValidateOn(?\DateTimeInterface $tokenValidateOn): self
+    {
+        $this->tokenValidateOn = $tokenValidateOn;
+
+        return $this;
+    }
+
+    public function getTokenPasswordValidateOn(): ?\DateTimeInterface
+    {
+        return $this->tokenPasswordValidateOn;
+    }
+
+    public function setTokenPasswordValidateOn(?\DateTimeInterface $tokenPasswordValidateOn): self
+    {
+        $this->tokenPasswordValidateOn = $tokenPasswordValidateOn;
+
+        return $this;
     }
 }

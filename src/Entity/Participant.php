@@ -63,6 +63,11 @@ class Participant
         $this->isForfeited = false;
     }
 
+    public function __toString(): ?string
+    {
+        return $this->getArcher();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

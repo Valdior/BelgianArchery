@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
             // 3) Encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setTokenPassword($this->generateToken());
+            $user->setTokenRegistration($this->generateToken());
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
@@ -61,9 +61,10 @@ class RegistrationController extends AbstractController
      */
     public function confirmUser(Request $request, string $token, User $user, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $formAuthenticator, TranslatorInterface $translator): RedirectResponse
     {        
-        $tokenExist = $user->getTokenPassword();
+        $tokenExist = $user->getTokenRegistration();
         if($token === $tokenExist) {
-            $user->setTokenPassword(null);
+            $user->setTokenRegistration(null);
+            $user->setTokenValidateOn(new \DateTime());
             $user->setEnabled(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
