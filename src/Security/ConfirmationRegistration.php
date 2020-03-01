@@ -3,8 +3,11 @@
 namespace App\Security;
 
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Notifier\Recipient\AdminRecipient;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ConfirmationRegistration extends AbstractController
 {
@@ -23,9 +26,14 @@ class ConfirmationRegistration extends AbstractController
      */
     private $translator;
 
-    public function __construct(\Swift_Mailer $mailer, TranslatorInterface $translator)
+    /**
+     * @var \NotifierInterface
+     */
+    private $notifier;
+
+    public function __construct(\Swift_Mailer $mailer, TranslatorInterface $translator, NotifierInterface $notifier)
     {
-        // $this->user = $user;
+        $this->notifier = $notifier;
         $this->mailer = $mailer;
         $this->translator = $translator;
     }
@@ -44,6 +52,15 @@ class ConfirmationRegistration extends AbstractController
             );
 
         $this->mailer->send($message);
+        $this->preventAdmin($user);
     }
 
+    public function preventAdmin(User $user)
+    {
+        $notification = (new Notification('Nouvelle utilisateur', ['chat/slack']))
+            ->content('Un nouvelle utilisateur "'. $user->getUsername().'" vient de s\'enregistrer.');
+
+        // Send the notification to the recipient
+        $this->notifier->send($notification);
+    }
 }

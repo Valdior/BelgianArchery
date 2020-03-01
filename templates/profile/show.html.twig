@@ -188,7 +188,11 @@
             <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> Edit profil</a>
         </div>
         {% else %}
-        <a class="btn btn-primary" href="{{ path('archer_new') }}">Set Archer</a>
+        <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">        
+            <a class="btn btn-primary" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-key"></i> Change password</a>
+            <a class="btn btn-secondary" href="{{ path('archer_new') }}"><i class="fad fa-bow-arrow"></i> Set Archer</a>
+            <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> Edit profil</a>
+        </div>        
         {% endif %}
     </div>    
 </section>

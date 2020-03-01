@@ -18,11 +18,12 @@ class ArcherType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname', TextType::class, ['required' => true, 'label' => 'form.lastname'])
-            ->add('firstname', TextType::class, ['required' => true, 'label' => 'form.firstname'])
-            ->add('birthdate', DateType::class, ['required' => false, 'label' => 'form.birthdate'])
+            ->add('lastname', TextType::class, ['required' => true, 'label' => 'form.archer.lastname'])
+            ->add('firstname', TextType::class, ['required' => true, 'label' => 'form.archer.firstname'])
+            ->add('birthdate', DateType::class, ['required' => false, 'label' => 'form.archer.birthdate'])
             ->add('gender', ChoiceType::class, array(
                 'required' => false,
+                'label' => 'form.archer.gender',
                 'placeholder' => 'Choissisez votre sexe',
                     'choices'  => Archer::getGenderList(),
                     'choice_label' => function ($value, $key, $index) {
@@ -31,6 +32,7 @@ class ArcherType extends AbstractType
                 ))
             ->add('defaultarc', ChoiceType::class, array(
                 'required' => false,
+                'label' => 'form.archer.defaultArc',
                 'placeholder' => 'Choissisez votre arc',
                 'choices'  => Archer::getTypeArcList(),
                 'choice_label' => function ($value, $key, $index) {
@@ -39,6 +41,7 @@ class ArcherType extends AbstractType
                 ))
             ->add('defaultcategory', EntityType::class,[
                 'required' => false,
+                'label' => 'form.archer.defaultCategory',
                 'placeholder' => 'Choissisez votre categorie',
                 'class' => ArcherCategory::class,]
                 )

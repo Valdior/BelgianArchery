@@ -3,5 +3,13 @@
 {% block title %}Register - {{ parent() }}{% endblock %}
 
 {% block body %}
-{{ include('registration/register.html.twig') }}
+<section class="row">
+    <header>
+        <h1 class="h3 mb-3 font-weight-normal">Inscrivez-vous gratuitement</h1>
+    </header>
+    {{ include('layout/message.html.twig') }}
+    <article class="col-xl-3">
+        {{ include('registration/register.html.twig') }}
+    </article>
+</section>
 {% endblock %}
