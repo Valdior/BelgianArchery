@@ -35,5 +35,7 @@
         </tbody>
     </table>
 
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('peloton_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

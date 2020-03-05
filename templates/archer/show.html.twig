@@ -100,9 +100,9 @@
     <a class="btn btn-warning" href="{{ path('archer_affiliation', {'id': archer.id}) }}">transfert</a>
     {% if archer.status == "Actif" %}
     <a class="btn btn-danger" href="{{ path('archer_affiliation_stop', {'id': archer.id}) }}">arrête</a>
-    {% endif %}
+    {% endif %}    
+{{ include('archer/_delete_form.html.twig') }}
 
     
 {% endif %}
-{{ include('archer/_delete_form.html.twig') }}
 {% endblock %}

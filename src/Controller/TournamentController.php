@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
+use App\Repository\ParticipantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,11 +100,22 @@ class TournamentController extends AbstractController
     /**
      * @Route("/{id}/ranking", name="tournament_ranking", methods="GET")
      */
-    public function ranking(Tournament $tournament)
+    public function ranking(Tournament $tournament, ParticipantRepository $repo)
     {
-        $participants = $this->getDoctrine()
-            ->getRepository(Participant::class)
-            ->ranking($tournament->getId());
+        $participants = $repo->ranking($tournament->getId());
         return $this->render('tournament/ranking.html.twig', ['participants' => $participants]);
+    }
+
+    /**
+     * @Route("/agenda/{page}/{isFutur}", name="tournament_agenda", methods="GET")
+     */
+    public function agenda(TournamentRepository $repo, int $page, bool $isFutur)
+    {
+        $tournaments = $repo->agenda($page, $isFutur);
+        return $this->render('tournament/agenda.html.twig', [
+            'tournaments' => $tournaments,
+            'page' => $page,
+            'title' => 'PastOrFutur'
+            ]);
     }
 }

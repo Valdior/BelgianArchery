@@ -3,13 +3,13 @@
 {% block title %}Register - {{ parent() }}{% endblock %}
 
 {% block body %}
-<section class="row justify-content-center">
+<section class="row">
     {#  #}
     {{ include('layout/message.html.twig') }}
-    <article class="col-6">
+    <article class="col-xl-6 col-md-12">
         {{ include('registration/register.html.twig') }}
     </article>
-    <article class="col-6">
+    <article class="col-xl-6 col-md-12">
         <header>
             <h1 class="h3 mb-3 font-weight-normal">Pourquoi s'inscrire ?</h1>
         </header>

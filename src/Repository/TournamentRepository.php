@@ -19,6 +19,11 @@ class TournamentRepository extends ServiceEntityRepository
         parent::__construct($registry, Tournament::class);
     }
 
+    public function agenda(int $page, bool $isFutur)
+    {
+
+    }
+
     // /**
     //  * @return Tournament[] Returns an array of Tournament objects
     //  */

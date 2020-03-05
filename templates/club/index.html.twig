@@ -2,10 +2,19 @@
 
 {% block title %}Club index{% endblock %}
 
+{% block body_title %}
+<section class="jumbotron">
+    <header class="col">
+        <h1 class="title"><span class="fa-stack fa-1x">        
+        <i class="fas fa-square fa-stack-2x"></i>
+        <i class="fad fa-bullseye-arrow fa-stack-1x fa-inverse"></i>
+        </span> Liste des clubs</h1>
+    </header>
+</section>
+{% endblock %}
+
 {% block body %}
 <div class="container-xl">
-    <h1>Club index</h1>
-
     <table class="table">
         <thead>
             <tr>
@@ -33,7 +42,8 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('club_new') }}">Create new</a>
+    {% endif %}
 </div>
 {% endblock %}

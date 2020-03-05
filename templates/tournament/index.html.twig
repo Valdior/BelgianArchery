@@ -1,45 +1,98 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}Tournament index{% endblock %}
+{% block title %}Les compétitions | {{ parent()}}{% endblock %}
+
+{% block body_title %}
+<section class="jumbotron">
+    <header class="col">
+        <h1 class="title"><span class="fa-stack fa-1x">        
+        <i class="fas fa-square fa-stack-2x"></i>
+        <i class="fad fa-calendar-alt fa-stack-1x fa-inverse"></i>
+        </span> Agenda des compétitions</h1>
+    </header>
+</section>
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Tournament index</h1>
+<section class="row">
+    {{ render(controller('App\\Controller\\TournamentController::agenda', {'isFutur': true, 'page': 1})) }}
+    {{ render(controller('App\\Controller\\TournamentController::agenda', {'isFutur': false, 'page': 1})) }}
+    {# <article class="col-xl-6 col-md-12">
+        <header class="col">
+            <h4>Compétitions passées</h4>
+        </header>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Organisateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Type</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tournament in tournaments %}
+                <tr>
+                    <td>{{ tournament.organizer.acronym }}</td>
+                    <td>{{ tournament.startDate ? tournament.startDate|date('d-m') : '' }}</td>
+                    <td>{{ tournament.endDate ? tournament.endDate|date('d-m') : '' }}</td>
+                    <td>{{ tournament.type }}</td>
+                    <td>
+                        <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
+                        {% endif %} 
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </article>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Organisateur</th>
-                <th>Date début</th>
-                <th>Date fin</th>
-                <th>Type</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tournament in tournaments %}
-            <tr>
-                <td>{{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</td>
-                <td>{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</td>
-                <td>{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</td>
-                <td>{{ tournament.type }}</td>
-                <td>
-                    <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
-                    {% endif %} 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <article class="col-xl-6 col-md-12">
+        <header class="col">
+            <h4>Compétitions à venir</h4>
+        </header>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Organisateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Type</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tournament in tournaments %}
+                <tr>
+                    <td>{{ tournament.organizer.acronym }}</td>
+                    <td>{{ tournament.startDate ? tournament.startDate|date('d-m') : '' }}</td>
+                    <td>{{ tournament.endDate ? tournament.endDate|date('d-m') : '' }}</td>
+                    <td>{{ tournament.type }}</td>
+                    <td>
+                        <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
+                        {% endif %} 
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </article> #}
 
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('tournament_new') }}">Create new</a>
-{% endif %}  
-</div>
+{% endif %} 
+</section>
 {% endblock %}
