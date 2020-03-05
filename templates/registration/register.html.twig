@@ -1,6 +1,7 @@
 {# templates/registration/register.html.twig #}
 
-{{ form_start(form, {'attr': {'class': 'form-signin'}}) }}
+{{ form_start(form, {'attr': {'class': 'form-registration'}}) }}
+<div class="registration-content">
     <div class="my-custom-class-for-errors">
         {{ form_errors(form) }}
     </div>
@@ -10,5 +11,9 @@
     {{ form_label(form.plainPassword.first, null, {'label_attr': {'class': 'sr-only'}}) }}{{ form_widget(form.plainPassword.first) }}
     {{ form_label(form.plainPassword.second, null, {'label_attr': {'class': 'sr-only'}}) }}{{ form_widget(form.plainPassword.second) }}
 
+    <p>
+        Vos données personnelles (email et nom d'utilisateur) ne sont utilisées qu'à des fins d'authentification et ne sont pas partagés avec des tiers.
+    </p>
     <button type="submit" class="btn btn-lg btn-primary btn-block">{{ 'registration.submit'|trans }}</button>
+</div>
 {{ form_end(form) }}

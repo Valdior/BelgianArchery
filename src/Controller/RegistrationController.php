@@ -49,7 +49,10 @@ class RegistrationController extends AbstractController
 
         return $this->render(
             'registration/index.html.twig',
-            array('form' => $form->createView())
+            [
+                'current_menu' => 'registration',
+                'form' => $form->createView()
+            ]
         );
     }
 

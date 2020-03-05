@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CoreController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
     public function index()
     {
@@ -21,7 +21,7 @@ class CoreController extends AbstractController
     }
 
     /**
-     * @Route("/test1", name="test")
+     * @Route("/test", name="test")
      */
     public function test(NotifierInterface $notifier)
     {
@@ -29,15 +29,7 @@ class CoreController extends AbstractController
             ->content('You got a new invoice for 150 EUR.');
 
         // Send the notification to the recipient
-        $notifier->send($notification);
-
-        // $notification = (new Notification('New Invoice', ['email']))
-        //     ->content('You got a new invoice for 15 EUR.');
-        // $recipient = new AdminRecipient(
-        //     'gogeta_vegeto4@hotmail.com',
-        //     '0497903017'
-        // );
-        // $notifier->send($notification, $recipient);
+        // $notifier->send($notification);
 
         return $this->redirectToRoute('home');
     }
