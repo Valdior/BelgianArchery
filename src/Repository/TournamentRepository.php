@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Tournament;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM;
 
 /**
  * @method Tournament|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,7 +22,12 @@ class TournamentRepository extends ServiceEntityRepository
 
     public function agenda(int $page, bool $isFutur)
     {
+        // return $this->
+    }
 
+    public function agendas()
+    {
+        return $this->createQueryBuilder('t')->getQuery();
     }
 
     // /**

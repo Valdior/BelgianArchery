@@ -6,10 +6,11 @@ use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
 use App\Repository\ParticipantRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/tournament")
@@ -19,11 +20,12 @@ class TournamentController extends AbstractController
     /**
      * @Route("/", name="tournament_index", methods={"GET"})
      */
-    public function index(TournamentRepository $tournamentRepository): Response
+    public function index(TournamentRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
+        $tournaments = $paginator->paginate($repo->agendas(), $request->query->getInt('page', 1), 5);
         return $this->render('tournament/index.html.twig', [
             'current_menu' => 'tournament',
-            'tournaments' => $tournamentRepository->findBy(array(), array('startDate' => 'ASC'))
+            'tournaments' => $tournaments
         ]);
     }
 
@@ -104,18 +106,5 @@ class TournamentController extends AbstractController
     {
         $participants = $repo->ranking($tournament->getId());
         return $this->render('tournament/ranking.html.twig', ['participants' => $participants]);
-    }
-
-    /**
-     * @Route("/agenda/{page}/{isFutur}", name="tournament_agenda", methods="GET")
-     */
-    public function agenda(TournamentRepository $repo, int $page, bool $isFutur)
-    {
-        $tournaments = $repo->agenda($page, $isFutur);
-        return $this->render('tournament/agenda.html.twig', [
-            'tournaments' => $tournaments,
-            'page' => $page,
-            'title' => 'PastOrFutur'
-            ]);
     }
 }

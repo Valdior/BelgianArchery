@@ -42,7 +42,7 @@ class Participant
     private $isForfeited;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Archer", inversedBy="participants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Archer", inversedBy="competitions")
      */
     private $archer;
 

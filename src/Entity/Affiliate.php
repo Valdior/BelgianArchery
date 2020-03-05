@@ -32,13 +32,13 @@ class Affiliate
     private $affiliateEnd;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="archer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="members")
      * @ORM\JoinColumn(nullable=false)
      */
     private $club;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Archer", inversedBy="affiliates")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Archer", inversedBy="affiliations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $archer;
