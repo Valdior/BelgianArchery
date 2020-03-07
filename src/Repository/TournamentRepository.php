@@ -2,10 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Tournament;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM;
+use App\Entity\Tournament;
+use App\Entity\TournamentSearch;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Tournament|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,9 +26,18 @@ class TournamentRepository extends ServiceEntityRepository
         // return $this->
     }
 
-    public function agendas()
+    public function agendas(TournamentSearch $search)
     {
-        return $this->createQueryBuilder('t')->getQuery();
+        $query = $this->createQueryBuilder('t');
+
+        if($search->getType())
+        {            
+            $query = $query->where('t.type = :type')
+                            ->setParameter(':type', array_search($search->getType(), TournamentSearch::getTypeList()));
+        }
+
+
+        return $query->getQuery();
     }
 
     // /**

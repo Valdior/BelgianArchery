@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Tournament;
 use App\Form\TournamentType;
+use App\Entity\TournamentSearch;
+use App\Form\TournamentSearchType;
 use App\Repository\TournamentRepository;
 use App\Repository\ParticipantRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -22,10 +24,22 @@ class TournamentController extends AbstractController
      */
     public function index(TournamentRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
-        $tournaments = $paginator->paginate($repo->agendas(), $request->query->getInt('page', 1), 5);
+        $search = new TournamentSearch();
+        $form = $this->createForm(TournamentSearchType::class, $search);
+        $form->handleRequest($request);
+
+
+        $tournaments = $paginator->paginate(
+            $repo->agendas($search), 
+            $request->query->getInt('page', 1),
+            5);
+
+
+
         return $this->render('tournament/index.html.twig', [
             'current_menu' => 'tournament',
-            'tournaments' => $tournaments
+            'tournaments' => $tournaments,
+            'form' => $form->createView()
         ]);
     }
 

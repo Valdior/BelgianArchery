@@ -25,10 +25,10 @@ class ArcherType extends AbstractType
                 'required' => false,
                 'label' => 'form.archer.gender',
                 'placeholder' => 'Choissisez votre sexe',
-                    'choices'  => Archer::getGenderList(),
-                    'choice_label' => function ($value, $key, $index) {
-                        return $value;
-                    },
+                'choices'  => Archer::getGenderList(),
+                'choice_label' => function ($value, $key, $index) {
+                    return $value;
+                },
                 ))
             ->add('defaultarc', ChoiceType::class, array(
                 'required' => false,
