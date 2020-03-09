@@ -51,7 +51,7 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="club_show", methods={"GET"})
+     * @Route("/{acronym}", name="club_show", methods={"GET"})
      */
     public function show(Club $club): Response
     {
@@ -62,7 +62,7 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="club_edit", methods={"GET","POST"})
+     * @Route("/{acronym}/edit", name="club_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Club $club): Response
     {

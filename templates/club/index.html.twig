@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}Club index{% endblock %}
+{% block title %}Club index | {{parent()}}{% endblock %}
 
 {% block body_title %}
 <section class="jumbotron">
@@ -29,9 +29,9 @@
                 <td>{{ club.acronym }}</td>
                 <td>{{ club.name }}</td>
                 <td>
-                    <a href="{{ path('club_show', {'id': club.id}) }}">show</a>
+                    <a href="{{ path('club_show', {'acronym': club.acronym}) }}">show</a>
                     {% if (is_granted('ROLE_OWNER_CLUB')) %}
-                    <a href="{{ path('club_edit', {'id': club.id}) }}">edit</a>
+                    <a href="{{ path('club_edit', {'acronym': club.acronym}) }}">edit</a>
                     {% endif %}
                 </td>
             </tr>

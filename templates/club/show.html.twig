@@ -1,19 +1,24 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}Club{% endblock %}
+{% block title %}{{ club.acronym }} | {{parent()}}{% endblock %}
+
+{% block body_title %}
+<section class="jumbotron">
+    <header class="col">
+        <h1 class="title"><span class="fa-stack fa-1x">        
+        <i class="fas fa-square fa-stack-2x"></i>
+        <i class="fad fa-bullseye-arrow fa-stack-1x fa-inverse"></i>
+        </span> {{ club.name }}</h1>
+    </header>
+</section>
+{% endblock %}
 
 {% block body %}
-<div class="row"> 
-    
+<div class="row">
     <section class="col-md-6">
-        <h1>Club</h1>
-
+        <h2>Information</h2>
         <table class="table">
             <tbody>
-                <tr>
-                    <th>Name</th>
-                    <td>{{ club.name }}</td>
-                </tr>
                 <tr>
                     <th>Acronym</th>
                     <td>{{ club.acronym }}</td>
@@ -21,6 +26,10 @@
                 <tr>
                     <th>Number</th>
                     <td>{{ club.number }}</td>
+                </tr>
+                <tr>
+                    <th>Region</th>
+                    <td>{{ club.region }}</td>
                 </tr>
             </tbody>
         </table>        
@@ -36,11 +45,11 @@
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td>{{ club.email }}</td>
+                    <td><a href="mailto:{{ club.email }}">{{ club.email }}</a></td>
                 </tr>
                 <tr>
                     <th>Site web</th>
-                    <td><a href="{{ club.website }}">{{ club.website }}</a></td>
+                    <td><a href="{{ club.website }}" target="_blank" rel="external">{{ club.website }}</a></td>
                 </tr>                
             </tbody>
         </table>        
@@ -104,7 +113,7 @@
 
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a class="btn btn-info" href="{{ path('club_edit', {'id': club.id}) }}">edit</a>
+    <a class="btn btn-info" href="{{ path('club_edit', {'acronym': club.acronym}) }}">edit</a>
 
     {{ include('club/_delete_form.html.twig') }}
 {% endif %}
