@@ -41,7 +41,7 @@ class ConfirmationRegistration extends AbstractController
     public function sendConfirmation(User $user)
     {
         $message = (new \Swift_Message($this->translator->trans('registration.email.subject', ['%username%' => $user->getUsername()])))
-            ->setFrom('admin@example.com')
+            ->setFrom('no-reply@imanarcher.be', 'No-Reply | I\'m an Archer')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView(

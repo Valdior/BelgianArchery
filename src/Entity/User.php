@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
+ * @ORM\Table(name="_user")
+ * @
  */
 class User implements UserInterface
 {

@@ -17,6 +17,7 @@ class ClubType extends AbstractType
             ->add('acronym')
             ->add('email')
             ->add('website')
+            ->add('region')
         ;
     }
 

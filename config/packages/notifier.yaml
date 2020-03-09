@@ -13,4 +13,4 @@ framework:
             medium: ['chat/slack']
             low: ['chat/slack']
         admin_recipients:
-            - { email: admin@example.com }
+            - { email: no-reply@imanarcher.be }
