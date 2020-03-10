@@ -2,17 +2,24 @@
 
 {% block title %}Tournament{% endblock %}
 
+{% block body_title %}
+<section class="jumbotron">
+    <header class="container-xl">
+        <h1 class="title"><span class="fa-stack fa-1x">        
+        <i class="fas fa-square fa-stack-2x"></i>
+        <i class="fad fa-bullseye-arrow fa-stack-1x fa-inverse"></i>
+        </span> Compétition</h1>
+    </header>
+</section>
+{% endblock %}
+
 {% block body %}
 <secion class="container">
-    <header>
-        <h1>Tournament</h1>
-    </header>
-
     <table class="table">
         <tbody>
             <tr>
                 <th>Organisateur</th>
-                <td>{{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</td>
+                <td>{% if tournament.organizer is not null %} {{ tournament.organizer.acronym }} - {{ tournament.organizer.name }} {% endif %}</td>
             </tr>
             <tr>
                 <th>StartDate</th>

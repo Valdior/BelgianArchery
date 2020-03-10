@@ -2,9 +2,18 @@
 
 {% block title %}Les compétitions | {{ parent()}}{% endblock %}
 
+{% block stylesheets %}
+<style>
+tr[data-href]
+{
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+
 {% block body_title %}
 <section class="jumbotron">
-    <header class="col">
+    <header class="container-xl">
         <h1 class="title"><span class="fa-stack fa-1x">        
         <i class="fas fa-square fa-stack-2x"></i>
         <i class="fad fa-calendar-alt fa-stack-1x fa-inverse"></i>
@@ -29,16 +38,33 @@
     </div>
 </div>
 <section class="row">
-    <article class="col-xl-6 col-md-12">
-        
+    <article class="col-xl-8 col-md-12">        
         {{ include('tournament/_agenda.html.twig') }}
         <div class="navigation">
             {{ knp_pagination_render(tournaments) }}
         </div>
-    </article>   
+    </article>  
+
+    <aside class="col-xl-4 col-md-12">
+    </aside> 
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('tournament_new') }}">Create new</a>
+    <a href="{{ path('tournament_new') }}" class="btn btn-primary">Créer une compétition</a>
 {% endif %} 
 </section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+document.addEventListener("DOMContentLoaded",  () => {
+    const rows = document.querySelectorAll("tr[data-href]");
+    rows.forEach(row => {
+        row.addEventListener("click", () => {
+            window.location.href = row.dataset.href;
+        })
+    })
+})
+</script>
 {% endblock %}

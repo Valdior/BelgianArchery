@@ -1,31 +1,21 @@
 <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Organisateur</th>
-                <th>Date début</th>
-                <th>Date fin</th>
-                <th>Type</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tournament in tournaments %}
-            <tr>
-                <td>{{ tournament.organizer.acronym }}</td>
-                <td>{{ tournament.startDate ? tournament.startDate|date('d-m') : '' }}</td>
-                <td>{{ tournament.endDate ? tournament.endDate|date('d-m') : '' }}</td>
-                <td>{{ tournament.type }}</td>
-                <td>
-                    <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
-                    {% endif %} 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <tbody>
+    {% for tournament in tournaments %}
+        <tr data-href="{{ path('tournament_show', {'id': tournament.id}) }}">
+            <td class="table-primary">{{ tournament.startDate ? tournament.startDate|date('d-m') : '' }} au {{ tournament.endDate ? tournament.endDate|date('d-m') : '' }}</td>
+            <td>{% if tournament.organizer is not null %} {{ tournament.organizer.acronym }}{% endif %}</td>
+            <td>{{ tournament.type }}</td>
+            <td>            
+                <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
+                {% endif %} 
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

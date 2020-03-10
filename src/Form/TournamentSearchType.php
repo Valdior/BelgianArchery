@@ -16,8 +16,9 @@ class TournamentSearchType extends AbstractType
         $builder
             ->add('type', ChoiceType::class, array(
                 'required' => false,
+                'expanded' => true,
                 'label' => false,
-                'placeholder' => 'Type',
+                'placeholder' => 'Tous',
                 'choices'  => TournamentSearch::getTypeList(),
                 'choice_label' => function ($value, $key, $index) {
                     return $value;

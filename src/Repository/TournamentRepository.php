@@ -21,18 +21,13 @@ class TournamentRepository extends ServiceEntityRepository
         parent::__construct($registry, Tournament::class);
     }
 
-    public function agenda(int $page, bool $isFutur)
-    {
-        // return $this->
-    }
-
     public function agendas(TournamentSearch $search)
     {
         $query = $this->createQueryBuilder('t');
 
         if($search->getType())
         {            
-            $query = $query->where('t.type = :type')
+            $query = $query->andWhere('t.type = :type')
                             ->setParameter(':type', array_search($search->getType(), TournamentSearch::getTypeList()));
         }
 
