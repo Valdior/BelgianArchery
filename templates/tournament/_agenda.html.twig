@@ -1,16 +1,16 @@
 <table class="table table-striped">
     <tbody>
     {% for tournament in tournaments %}
-        <tr data-href="{{ path('tournament_show', {'id': tournament.id}) }}">
+        <tr data-href="{{ path('tournament_show', {'slug': tournament.slug}) }}">
             <td class="table-primary">{{ tournament.startDate ? tournament.startDate|date('d-m') : '' }} au {{ tournament.endDate ? tournament.endDate|date('d-m') : '' }}</td>
-            <td>{% if tournament.organizer is not null %} {{ tournament.organizer.acronym }}{% endif %}</td>
             <td>{{ tournament.type }}</td>
-            <td>            
-                <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
-                {% endif %} 
+            <td>{% if tournament.organizer is not null %} {{ tournament.organizer.acronym }}{% endif %}</td>
+            <td>{{ tournament.title }}</td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td>                
+                <a href="{{ path('tournament_edit', {'slug': tournament.slug}) }}">edit</a>
             </td>
+            {% endif %} 
         </tr>
     {% else %}
         <tr>

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Tournament;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,9 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TournamentSearch
 {
-    public const TYPE_INDOOR = 'indoor';
-    public const TYPE_OUTDOOR = 'outdoor';
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,7 +24,7 @@ class TournamentSearch
 
     public static function getTypeList()
     {
-        return [self::TYPE_INDOOR, self::TYPE_OUTDOOR];
+        return Tournament::getTypeList();
     } 
 
     public function getId(): ?int

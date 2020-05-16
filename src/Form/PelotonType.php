@@ -6,16 +6,25 @@ use App\Entity\Peloton;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class PelotonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maxParticipant')
-            ->add('type')
-            ->add('startTime')
-            ->add('tournament')
+            ->add('maxParticipant', IntegerType::class)
+            ->add('type', ChoiceType::class, array(
+                'required' => true,
+                'label' => 'Type de tir',
+                'placeholder' => 'Choissisez le type de tir',
+                'choices'  => Peloton::getTypeList(),
+                'choice_label' => function ($value, $key, $index) {
+                    return $value;
+                }))
+            ->add('startTime', DateTimeType::class)
         ;
     }
 

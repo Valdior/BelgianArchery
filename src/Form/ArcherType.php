@@ -8,10 +8,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class ArcherType extends AbstractType
 {
@@ -20,7 +20,7 @@ class ArcherType extends AbstractType
         $builder
             ->add('lastname', TextType::class, ['required' => true, 'label' => 'form.archer.lastname'])
             ->add('firstname', TextType::class, ['required' => true, 'label' => 'form.archer.firstname'])
-            ->add('birthdate', DateType::class, ['required' => false, 'label' => 'form.archer.birthdate'])
+            ->add('birthdate', BirthdayType::class, ['required' => false, 'label' => 'form.archer.birthdate'])
             ->add('gender', ChoiceType::class, array(
                 'required' => false,
                 'label' => 'form.archer.gender',

@@ -18,9 +18,11 @@ import '../css/app.scss';
 import '../css/login.scss';
 import '../css/registration.scss';
 import $ from 'jquery';
+import 'select2/dist/css/select2.min.css';
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
+require('select2');
 
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
@@ -29,3 +31,5 @@ require('bootstrap');
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
+
+$('select').select2();

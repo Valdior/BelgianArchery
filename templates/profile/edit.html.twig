@@ -7,5 +7,5 @@
 
     {{ include('profile/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a class="btn btn-light" href="{{ path('profile') }}"><i class="fad fa-chevron-left"></i> back to list</a>
+    <a class="btn btn-light" href="{{ path('profile') }}"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
 {% endblock %}

@@ -3,9 +3,9 @@
 {% block title %}New Peloton{% endblock %}
 
 {% block body %}
-    <h1>Create new Peloton</h1>
+    <h1>{% trans %}peloton.add{% endtrans %}</h1>
 
     {{ include('peloton/_form.html.twig') }}
 
-    <a href="{{ path('peloton_index') }}">back to list</a>
+    <a href="{{ path('tournament_show', {'slug': tournament.slug}) }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
 {% endblock %}

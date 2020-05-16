@@ -1,3 +1,6 @@
+common:
+    back_list: 'retour à la liste'
+    edit: 'modifier'
 form:
     archer:
         lastname: 'Nom'
@@ -16,6 +19,8 @@ form:
         new_password: 'Nouveau mot de passe'
         new_password_confirmation: 'Répéter le nouveau mot de passe'
         mismatch: 'Les champs du mot de passe doivent correspondre.'
+    tournament:
+        delete: 'Supprimer la compétition'
     create: 'Créer'
     
 registration:
@@ -48,3 +53,13 @@ profile:
         submit: 'Mettre à jour'
     flash:
         updated: 'Le profil a été mis à jour.'
+
+tournament:
+    organizer: 'Organisateur'
+    startdate: 'Date de début'
+    enddate: 'Date de fin'
+    type: 'Type'
+    create: 'Créer une compétition'
+peloton:
+    add: 'Ajouter un peloton'
+

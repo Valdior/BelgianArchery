@@ -2,9 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Peloton;
+use App\Entity\Attachment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TournamentRepository")
@@ -46,12 +50,44 @@ class Tournament
      */
     private $pelotons;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $contact;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $location;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $information;
+
     public function __construct()
     {
         $this->type     = 0;
         $this->pelotons = new ArrayCollection();
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
+        $this->attachments = new ArrayCollection();
+    }
+
+    public function __ToString()
+    {
+        return $this->getTitle();
     }
 
     public static function getTypeList()
@@ -162,5 +198,68 @@ class Tournament
             }
         }
         return $listParticipants;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        $slugger = new AsciiSlugger();
+        $this->setSlug($slugger->slug($this->title));
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(string $contact): self
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getInformation(): ?string
+    {
+        return $this->information;
+    }
+
+    public function setInformation(?string $information): self
+    {
+        $this->information = $information;
+
+        return $this;
     }
 }

@@ -30,7 +30,9 @@
                 <th>Total</th>
                 <th>10</th>
                 <th>9</th>
+                {% if is_granted('ROLE_ADMIN') %}
                 <th>Action<th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -42,20 +44,22 @@
                 <td>{{ participant.points }}</td>
                 <td>{{ participant.numberoften }}</td>
                 <td>{{ participant.numberofnine }}</td>
-                <td><a href="{{ path('participant_edit', {'tournament' : peloton.tournament.id, 'id': participant.id}) }}">Modifier</a></td>
+                {% if is_granted('ROLE_ADMIN') %}
+                <td><a href="{{ path('participant_edit', {'slug' : peloton.tournament.slug, 'id': participant.id}) }}">Modifier</a></td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('tournament_show', {'id': peloton.tournament.id}) }}">back to list</a>
+    <a href="{{ path('tournament_show', {'slug': peloton.tournament.slug}) }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
     
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('peloton_edit', {'tournament' : peloton.tournament.id, 'id': peloton.id}) }}">edit</a>
+    <a href="{{ path('peloton_edit', {'slug' : peloton.tournament.slug, 'id': peloton.id}) }}">edit</a>
 
     {{ include('peloton/_delete_form.html.twig') }}
 {% endif %}

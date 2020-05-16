@@ -1,4 +1,10 @@
 {{ form_start(form) }}
+    {# {% for attachment in form.attachments %}
+        <li>
+            {{ form_errors(attachment) }}
+            {{ form_widget(attachment) }}
+        </li>
+    {% endfor %} #}
     {{ form_widget(form) }}
     <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

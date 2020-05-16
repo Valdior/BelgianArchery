@@ -53,8 +53,8 @@ class Peloton
     public function __construct()
     {
         $this->type             = 0;
-        $this->tounament        = new ArrayCollection();
         $this->participants     = new ArrayCollection();
+        $this->startTime        = new \DateTime();
     }
 
     public static function getTypeList()

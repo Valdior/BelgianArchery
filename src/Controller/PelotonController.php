@@ -15,24 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/tournament/{tournament}/peloton")
+ * @Route("/tournament/{slug}/peloton")
  */
 class PelotonController extends AbstractController
 {
     /**
-     * @Route("/", name="peloton_index", methods={"GET"})
-     */
-    public function index(PelotonRepository $pelotonRepository): Response
-    {
-        return $this->render('peloton/index.html.twig', [
-            'pelotons' => $pelotonRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="peloton_new", methods={"GET","POST"}) 
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Tournament $tournament): Response
     {
         $peloton = new Peloton();
         $form = $this->createForm(PelotonType::class, $peloton);
@@ -40,13 +30,17 @@ class PelotonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $peloton->setTournament($tournament);
             $entityManager->persist($peloton);
             $entityManager->flush();
 
-            return $this->redirectToRoute('peloton_index');
+            $this->addFlash('success', 'Création d\'un nouveau peloton pour la compétition');
+
+            return $this->redirectToRoute('tournament_show', ['slug' => $tournament->getSlug()]);
         }
 
         return $this->render('peloton/new.html.twig', [
+            'tournament' => $tournament,
             'peloton' => $peloton,
             'form' => $form->createView(),
         ]);
@@ -73,7 +67,7 @@ class PelotonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('peloton_index');
+            return $this->redirectToRoute('peloton_show', ['slug' => $peloton->getTournament()->getSlug(), 'id' => $peloton->getId()]);
         }
 
         return $this->render('peloton/edit.html.twig', [
@@ -85,21 +79,23 @@ class PelotonController extends AbstractController
     /**
      * @Route("/{id}", name="peloton_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Peloton $peloton): Response
+    public function delete(Request $request, Tournament $tournament, Peloton $peloton): Response
     {
         if ($this->isCsrfTokenValid('delete'.$peloton->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($peloton);
             $entityManager->flush();
+            
+            $this->addFlash('success', 'Le peloton a bien été supprimé');
         }
 
-        return $this->redirectToRoute('peloton_index');
+        return $this->redirectToRoute('peloton_index', ['slug' => $tournament->getSlug()]);
     }
 
     /**
      * @Route("/{id}/register", name="peloton_register", methods="GET|POST")
      */
-    public function register(Request $request, Tournament $tournament, Peloton $peloton, ParticipantRepository $participantRepository): Response
+    public function register(Request $request, Peloton $peloton, ParticipantRepository $participantRepository): Response
     {
         $participant = new Participant();
         $participant->setPeloton($peloton);
@@ -112,7 +108,7 @@ class PelotonController extends AbstractController
 
             if($value)
             {
-                $this->addFlash('warning', '"' . $participant->getArcher()->getFullname() . '" a déjà été inscrit à ce peloton');
+                $this->addFlash('warning', '"' . $participant->getArcher()->getFullname() . '" est déjà inscrit à ce peloton');
             }
             else
             {
@@ -120,16 +116,15 @@ class PelotonController extends AbstractController
                 $em->persist($participant);
                 $em->flush();
 
-                $this->addFlash('success', '"' . $participant->getArcher()->getFullname() . '" a été inscrit à ce peloton');                
+                $this->addFlash('success', '"' . $participant->getArcher()->getFullname() . '" a été inscrit à ce peloton');
             }
 
-            return $this->redirectToRoute('tournament_show', ['id' => $tournament->getId()]);
+            return $this->redirectToRoute('tournament_show', ['slug' => $peloton->getTournament()->getSlug()]);
         }        
 
         return $this->render('participant/register.html.twig', [
             'participant' => $participant,
             'peloton' => $peloton,
-            'tournament' => $tournament,
             'form' => $form->createView(),
         ]);
     }

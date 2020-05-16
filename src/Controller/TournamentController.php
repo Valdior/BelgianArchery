@@ -12,7 +12,11 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+
 
 /**
  * @Route("/tournament")
@@ -68,7 +72,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="tournament_show", methods={"GET"})
+     * @Route("/{slug}", name="tournament_show", methods={"GET"})
      */
     public function show(Tournament $tournament): Response
     {
@@ -79,7 +83,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="tournament_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="tournament_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Tournament $tournament): Response
     {
@@ -87,6 +91,32 @@ class TournamentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $attachments = new ArrayCollection();
+
+            // dd($tournament->getAttachment());
+
+            // foreach ($tournament->getAttachment() as $attachment) {
+                
+            //     $fileName = $this->get('app.file_uploader')->upload($attachment);
+        
+            //     $file = new File();
+            //     $file->setFilename($fileName);
+            //     $file->setUser($this->getUser());
+        
+            //     $attachments->add($file);
+            //     //$supportMessage->addAttachment($file);
+            // }
+        
+            // $supportMessage->setAttachments($attachments);
+            /** @var Attacments $invitations */
+            $invitations = $form->get('attachments')->getData();
+
+            dd($tournament);
+            // foreach($invitations as $invitation)
+            // {
+            //     dd(invitations);
+            // }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('tournament_index');
@@ -100,7 +130,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="tournament_delete", methods={"DELETE"})
+     * @Route("/{slug}", name="tournament_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Tournament $tournament): Response
     {
@@ -114,7 +144,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/ranking", name="tournament_ranking", methods="GET")
+     * @Route("/{slug}/ranking", name="tournament_ranking", methods="GET")
      */
     public function ranking(Tournament $tournament, ParticipantRepository $repo)
     {

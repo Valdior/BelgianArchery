@@ -1,43 +1,47 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}Tournament{% endblock %}
+{% block title %}{{ tournament.title }} | {{parent()}}{% endblock %}
 
 {% block body_title %}
 <section class="jumbotron">
     <header class="container-xl">
-        <h1 class="title"><span class="fa-stack fa-1x">        
+        <h1 class="title"><span class="fa-stack fa-1x">
         <i class="fas fa-square fa-stack-2x"></i>
         <i class="fad fa-bullseye-arrow fa-stack-1x fa-inverse"></i>
-        </span> Compétition</h1>
+        </span> {{ tournament.title }}</h1>
     </header>
 </section>
 {% endblock %}
 
 {% block body %}
 <secion class="container">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Organisateur</th>
-                <td>{% if tournament.organizer is not null %} {{ tournament.organizer.acronym }} - {{ tournament.organizer.name }} {% endif %}</td>
-            </tr>
-            <tr>
-                <th>StartDate</th>
-                <td>{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndDate</th>
-                <td>{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ tournament.type }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card-deck">
+        <div class="card bg-light border-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Du <span class="display-6 font-weight-bold">{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</span> au
+                <span class="display-6 font-weight-bold">{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</span></h5>
+                <span class="badge badge-secondary">{{ tournament.type }}</span>
+                <h5 class="card-title">Information</h5>
+                <p class="card-text">{{ tournament.information }}</p>
+                <h5 class="card-title">Invitation</h5>
+            </div>
+        </div>
+        <div class="card bg-light border-info mb-3">
+            <div class="card-header bg-primary text-white">{% if tournament.organizer is not null %} {{ tournament.organizer.fullname }}{% endif %}</div>
+            <div class="card-body">
+                <h5 class="card-title">Contact</h5>
+                <p class="card-text">{{ tournament.contact }}</p>
+                <h5 class="card-title">Adresse de la compétition</h5>
+                <p class="card-text">
+                    {% include 'location/_address.html.twig' with {address: tournament.location} only %}
+                </p>
+            </div>
+        </div>
+    </div>
+    
 
-    {% if date(tournament.endDate) > date("now") or is_granted('ROLE_ADMIN')   %}
-    <div class="row">   
+    {% if date(tournament.endDate) > date("now") or is_granted('ROLE_ADMIN') %}
+    <div class="row">
         <section class="col-md-6">
             <h3>Pelotons</h3>
             {{ include('layout/message.html.twig') }}
@@ -54,11 +58,11 @@
                 {% for peloton in tournament.pelotons %}
                     <tr>
                         <td>#{{ loop.index }}</td>
-                        <td>{{ peloton.starttime|date('d-m-Y H:i') }}</td>
+                        <td>{{ peloton.starttime|date('d-M H:i') }}</td>
                         <td>{{ peloton.type }}</td>
-                        <td><a href="{{ path('peloton_show', {'tournament': tournament.id, 'id' : peloton.id}) }}" >Show</a>
+                        <td><a href="{{ path('peloton_show', {'slug': tournament.slug, 'id' : peloton.id}) }}" >Show</a>
                         {% if is_granted('ROLE_ARCHER') %}
-                            <a href="{{ path('peloton_register', {'tournament': tournament.id, 'id' : peloton.id}) }}">S'inscrire</a>
+                            <a href="{{ path('peloton_register', {'slug': tournament.slug, 'id' : peloton.id}) }}">S'inscrire</a>
                         {% endif %}
                         </td>
                     </tr>
@@ -70,7 +74,7 @@
                 </tbody>
             </table>
             {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('peloton_new', {'tournament': tournament.id}) }}">Create new</a>
+            <a href="{{ path('peloton_new', {'slug': tournament.slug}) }}" class="btn btn-primary"><i class="fad fa-bullseye-pointer"></i> {% trans %}peloton.add{% endtrans %}</a>
             {% endif %}
         </section>     
         
@@ -78,14 +82,17 @@
     {% endif %}
 
     {% if date(tournament.endDate) < date("now") %}
-    {{ render(controller('App\\Controller\\TournamentController::ranking', {'id': tournament.id})) }}
+    {{ render(controller('App\\Controller\\TournamentController::ranking', {'slug': tournament.slug})) }}
     {% endif %}
 
-    <a href="{{ path('tournament_index') }}">back to list</a>
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
 
-    {{ include('tournament/_delete_form.html.twig') }}
-{% endif %}
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a href="{{ path('tournament_index') }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('tournament_edit', {'slug': tournament.slug}) }}" class="btn btn-info"><i class="fad fa-pencil"></i> {% trans %}common.edit{% endtrans %}</a>
+        {{ include('tournament/_delete_form.html.twig') }}
+    {% endif %}
+    </div>
 </div>
 {% endblock %}
+

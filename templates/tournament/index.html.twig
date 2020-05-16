@@ -23,7 +23,7 @@ tr[data-href]
 {% endblock %}
 
 {% block body %}
-<div class="jumbotron">
+{# <div class="jumbotron">
     <div class="container">
         {{ form_start(form) }}
         <div class="form-row">
@@ -36,17 +36,17 @@ tr[data-href]
         </div>
         {{ form_end(form) }}
     </div>
-</div>
+</div> #}
 <section class="row">
-    <article class="col-xl-8 col-md-12">        
+    <article class="col-md-12">        
         {{ include('tournament/_agenda.html.twig') }}
         <div class="navigation">
             {{ knp_pagination_render(tournaments) }}
         </div>
     </article>  
 
-    <aside class="col-xl-4 col-md-12">
-    </aside> 
+    {# <aside class="col-xl-4 col-md-12">
+    </aside>  #}
 
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('tournament_new') }}" class="btn btn-primary">Créer une compétition</a>

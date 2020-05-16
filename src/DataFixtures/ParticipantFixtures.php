@@ -14,13 +14,13 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $participant = new Participant();
-        $participant->setArcher($this->getReference(ArcherFixtures::ARCHER_MP));
-        $participant->setPeloton($this->getReference(PelotonFixtures::PEL_ITW));
-        $participant->setCategory($this->getReference(ArcherCategoryFixtures::CAT_RH1));
-        $manager->persist($participant);
+        // $participant = new Participant();
+        // $participant->setArcher($this->getReference(ArcherFixtures::ARCHER_MP));
+        // $participant->setPeloton($this->getReference(PelotonFixtures::PEL_ITW));
+        // $participant->setCategory($this->getReference(ArcherCategoryFixtures::CAT_RH1));
+        // $manager->persist($participant);
         
-        $manager->flush($participant);
+        // $manager->flush($participant);
     }
 
     public function getDependencies()
