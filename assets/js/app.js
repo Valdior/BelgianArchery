@@ -19,6 +19,9 @@ import '../css/login.scss';
 import '../css/registration.scss';
 import $ from 'jquery';
 import 'select2/dist/css/select2.min.css';
+// import 'js-datepicker/dist/datepicker.min.css';
+import 'flatpickr/dist/flatpickr.min.css'
+
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
