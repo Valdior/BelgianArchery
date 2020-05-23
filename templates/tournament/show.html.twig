@@ -17,16 +17,6 @@
 <secion class="container">
     <div class="card-deck">
         <div class="card bg-light border-info mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Du <span class="display-6 font-weight-bold">{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</span> au
-                <span class="display-6 font-weight-bold">{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</span></h5>
-                <span class="badge badge-secondary">{{ tournament.type }}</span>
-                <h5 class="card-title">Information</h5>
-                <p class="card-text">{{ tournament.information }}</p>
-                <h5 class="card-title">Invitation</h5>
-            </div>
-        </div>
-        <div class="card bg-light border-info mb-3">
             <div class="card-header bg-primary text-white">{% if tournament.organizer is not null %} {{ tournament.organizer.fullname }}{% endif %}</div>
             <div class="card-body">
                 <h5 class="card-title">Contact</h5>
@@ -37,6 +27,16 @@
                 </p>
             </div>
         </div>
+        <div class="card bg-light border-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Du <span class="display-6 font-weight-bold">{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</span> au
+                <span class="display-6 font-weight-bold">{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</span></h5>
+                <span class="badge badge-secondary">{{ tournament.type }}</span>
+                <h5 class="card-title">Information</h5>
+                <p class="card-text">{{ tournament.information }}</p>
+            </div>
+        </div>
+        
     </div>
     
 
@@ -76,8 +76,7 @@
             {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('peloton_new', {'slug': tournament.slug}) }}" class="btn btn-primary"><i class="fad fa-bullseye-pointer"></i> {% trans %}peloton.add{% endtrans %}</a>
             {% endif %}
-        </section>     
-        
+        </section>
     </div>
     {% endif %}
 

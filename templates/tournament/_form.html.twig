@@ -1,10 +1,36 @@
 {{ form_start(form) }}
-    {# {% for attachment in form.attachments %}
-        <li>
-            {{ form_errors(attachment) }}
-            {{ form_widget(attachment) }}
-        </li>
-    {% endfor %} #}
+    <div class="form-row">
+        {{ form_row(form.title, {row_attr: {class: 'col-md-3'}}) }}
+    </div>
+    <div class="form-row">
+        {{ form_row(form.organizer, {row_attr: {class: 'col-md-3'}}) }}
+        {{ form_row(form.contact, {row_attr: {class: 'col-md-3'}}) }}
+    </div>
+    <div class="form-row">
+        {{ form_row(form.type, {row_attr: {class: 'col-md-3'}}) }}
+    </div>
+    <div class="form-row">
+        {{ form_row(form.startDate, {row_attr: {class: 'col-md-3'}}) }}
+        {{ form_row(form.endDate, {row_attr: {class: 'col-md-3'}}) }}
+    </div>
+    <div class="form-row">
+        {{ form_row(form.information, {row_attr: {class: 'col-md-12'}}) }}
+    </div>
+    <fieldset class="form-group">
+        <legend class="col-form-label required">Location</legend>
+        <div class="form-row">
+            {{ form_row(form.location.title, {row_attr: {class: 'col-md-3'}}) }}
+        </div>
+        <div class="form-row">
+            {{ form_row(form.location.locality, {row_attr: {class: 'col-md-3'}}) }}
+            {{ form_row(form.location.street, {row_attr: {class: 'col-md-3'}}) }}
+            {{ form_row(form.location.number, {row_attr: {class: 'col-md-3'}}) }}
+        </div>
+        <div class="form-row">
+            {{ form_row(form.location.postalcode, {row_attr: {class: 'col-md-3'}}) }}
+            {{ form_row(form.location.city, {row_attr: {class: 'col-md-3'}}) }}
+        </div>
+    </fieldset>
     {{ form_widget(form) }}
     <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

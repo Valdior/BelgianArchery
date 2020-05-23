@@ -91,32 +91,6 @@ class TournamentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $attachments = new ArrayCollection();
-
-            // dd($tournament->getAttachment());
-
-            // foreach ($tournament->getAttachment() as $attachment) {
-                
-            //     $fileName = $this->get('app.file_uploader')->upload($attachment);
-        
-            //     $file = new File();
-            //     $file->setFilename($fileName);
-            //     $file->setUser($this->getUser());
-        
-            //     $attachments->add($file);
-            //     //$supportMessage->addAttachment($file);
-            // }
-        
-            // $supportMessage->setAttachments($attachments);
-            /** @var Attacments $invitations */
-            $invitations = $form->get('attachments')->getData();
-
-            dd($tournament);
-            // foreach($invitations as $invitation)
-            // {
-            //     dd(invitations);
-            // }
-
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('tournament_index');

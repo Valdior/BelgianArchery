@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Entity\Peloton;
-use App\Entity\Attachment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\String\Slugger\AsciiSlugger;
