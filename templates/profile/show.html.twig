@@ -17,7 +17,7 @@
                 <div class="card-title mb-4">
                     <div class="d-flex justify-content-start">
                         <div class="image-container">
-                            <img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                            <img src="https://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
                             <div class="middle">
                                 <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
                                 <input type="file" style="display: none;" id="profilePicture" name="file" />
@@ -57,8 +57,6 @@
                         </ul>
                         <div class="tab-content ml-1" id="myTabContent">
                             <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
-                                
-
                                 <div class="row">
                                     <div class="col-sm-3 col-md-2 col-5">
                                         <label style="font-weight:bold;">Full Name</label>
@@ -184,14 +182,13 @@
             </div>
 
         <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">        
-            <a class="btn btn-primary" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-key"></i> Change password</a>
+            <a class="btn btn-primary" href="{{ path('app_forgot_password_request') }}"><i class="fad fa-key"></i> Change password</a>
             <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> Edit profil</a>
         </div>
         {% else %}
         <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">        
-            <a class="btn btn-primary" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-key"></i> Change password</a>
+            <a class="btn btn-primary" href="{{ path('app_forgot_password_request') }}"><i class="fad fa-key"></i> Change password</a>
             <a class="btn btn-secondary" href="{{ path('archer_new') }}"><i class="fad fa-bow-arrow"></i> Set Archer</a>
-            <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> Edit profil</a>
         </div>        
         {% endif %}
     </div>    
@@ -201,5 +198,6 @@
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
 {{ encore_entry_script_tags('profile') }}
 {% endblock %}

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Tournament;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use Symfony\Component\HttpFoundation\Request;

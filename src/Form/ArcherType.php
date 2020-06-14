@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Archer;
+use App\Type\BirthdayType;
 use App\Entity\ArcherCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,8 +11,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class ArcherType extends AbstractType
 {
@@ -24,7 +23,7 @@ class ArcherType extends AbstractType
             ->add('gender', ChoiceType::class, array(
                 'required' => false,
                 'label' => 'form.archer.gender',
-                'placeholder' => 'Choissisez votre sexe',
+                'placeholder' => 'form.archer.gender',
                 'choices'  => Archer::getGenderList(),
                 'choice_label' => function ($value, $key, $index) {
                     return $value;

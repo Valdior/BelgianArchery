@@ -37,7 +37,7 @@
                     <td>{{ participant.numberoften }}</td>
                     <td>{{ participant.numberofnine }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="{{ path('participant_edit', {'tournament': participant.peloton.tournament.id, 'id': participant.id}) }}">Edit</a></td>
+                    <td><a href="{{ path('participant_edit', {'slug': participant.peloton.tournament.slug, 'id': participant.id}) }}">Edit</a></td>
                     {% endif %}
                 </tr>
             {% else %}

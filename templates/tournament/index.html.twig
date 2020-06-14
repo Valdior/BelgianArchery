@@ -23,35 +23,17 @@ tr[data-href]
 {% endblock %}
 
 {% block body %}
-{# <div class="jumbotron">
-    <div class="container">
-        {{ form_start(form) }}
-        <div class="form-row">
-            <div class="col">
-                {{ form_row(form.type)}}
-            </div>
-            <div class="col">
-                <button class='btn btn-primary'>Rechercher</button>
-            </div>
-        </div>
-        {{ form_end(form) }}
-    </div>
-</div> #}
 <section class="row">
     <article class="col-md-12">        
         {{ include('tournament/_agenda.html.twig') }}
         <div class="navigation">
             {{ knp_pagination_render(tournaments) }}
         </div>
-    </article>  
-
-    {# <aside class="col-xl-4 col-md-12">
-    </aside>  #}
-
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('tournament_new') }}" class="btn btn-primary">Créer une compétition</a>
-{% endif %} 
+    </article>
 </section>
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('tournament_new') }}" class="btn btn-primary"><i class="fas fa-plus-square"></i> Créer une compétition</a>
+{% endif %} 
 {% endblock %}
 
 {% block javascripts %}

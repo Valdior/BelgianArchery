@@ -45,6 +45,6 @@ security:
         - { path: '^/', roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }   
         # - { path: ^/pRgCe1YN60AF6oMdzmlJ, roles: ROLE_ADMIN, requires_channel: https }        
         - { path: ^/profile, roles: ROLE_USER, requires_channel: https }        
-        - { path: ^/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/register$, roles: IS_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/login$, roles: IS_ANONYMOUSLY, requires_channel: https }
         # - { path: '^/', roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }       

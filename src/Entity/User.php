@@ -96,6 +96,11 @@ class User implements UserInterface
      */
     private $tokenPasswordValidateOn;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLoginAt;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -313,6 +318,18 @@ class User implements UserInterface
     public function setTokenPasswordValidateOn(?\DateTimeInterface $tokenPasswordValidateOn): self
     {
         $this->tokenPasswordValidateOn = $tokenPasswordValidateOn;
+
+        return $this;
+    }
+
+    public function getLastLoginAt(): ?\DateTimeInterface
+    {
+        return $this->lastLoginAt;
+    }
+
+    public function setLastLoginAt(?\DateTimeInterface $lastLoginAt): self
+    {
+        $this->lastLoginAt = $lastLoginAt;
 
         return $this;
     }

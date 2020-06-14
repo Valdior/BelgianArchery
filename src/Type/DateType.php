@@ -5,7 +5,7 @@ namespace App\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-class DateTimeType extends \Symfony\Component\Form\Extension\Core\Type\DateTimeType
+class DateType extends \Symfony\Component\Form\Extension\Core\Type\DateType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -14,7 +14,7 @@ class DateTimeType extends \Symfony\Component\Form\Extension\Core\Type\DateTimeT
             'html5' => false,
             'widget' => 'single_text',
             'attr' => [
-                'is' => 'datetime-picker'
+                'is' => 'date-picker'
             ]
         ]);
     }
