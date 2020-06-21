@@ -7,21 +7,14 @@ $primary: darken(#428bca, 20%);
 
 :root {
     --color: #121C42;
-    --color-secondary: #428bca;
+    --color-secondary: #245682;
 }
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
 @import '~@fortawesome/fontawesome-pro/scss/fontawesome';
-@import '~@fortawesome/fontawesome-pro/scss/regular';
-@import '~@fortawesome/fontawesome-pro/scss/solid';
-@import '~@fortawesome/fontawesome-pro/scss/brands';
 @import '~@fortawesome/fontawesome-pro/scss/duotone';
-@import '~@fortawesome/fontawesome-pro/scss/light';
+@import '~@fortawesome/fontawesome-pro/scss/solid';
 
 @import 'tools/typography.scss';
 

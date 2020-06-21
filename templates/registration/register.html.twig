@@ -15,11 +15,14 @@
         Vos données personnelles (email et nom d'utilisateur) ne sont utilisées qu'à des fins d'authentification et ne sont pas partagés avec des tiers.
     </p>
     {% if is_granted("role_admin") or app.environment == 'dev' %} 
-    <button type="submit" class="btn btn-lg btn-primary btn-block">{{ 'registration.submit'|trans }}</button>
+    <button type="submit" class="btn btn-lg btn-success btn-block">{{ 'registration.submit'|trans }}</button>
     {% else %}
     <div class="alert alert-warning">
         Pour l'instant les inscriptions sont fermée.
     </div>
     {% endif %}
+    <p class="small mt-2">
+        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+    </p>
 </div>
 {{ form_end(form) }}

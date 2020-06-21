@@ -1,17 +1,16 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}Register - {{ parent() }}{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block body %}
-<section class="row">
-    {#  #}
+<section class="row mt-4">
     {{ include('layout/message.html.twig') }}
     <article class="col-xl-6 col-md-12">
         {{ include('registration/register.html.twig') }}
     </article>
     <article class="col-xl-6 col-md-12">
         <header>
-            <h1 class="h3 mb-3 font-weight-normal">Pourquoi s'inscrire ?</h1>
+            <h1 class="h2 mb-2 font-weight-normal">Pourquoi s'inscrire ?</h1>
         </header>
         <p>
             Devenir membre sur <strong>I'm an Archer</strong>, c'est accéder à du contenu exclusif pour apprendre et s'améliorer dans le domaine de l'archerie.

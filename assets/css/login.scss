@@ -1,13 +1,14 @@
-body {
-    background-color: #fff;
-}
 
 .form-signin {
     width: 100%;
-    max-width: 330px;
+    max-width: 530px;
     padding: 15px;
     margin: auto;
     margin-top: 50px;
+    color: #e0e2e6;
+    background: url(/assets/img/form-register.c28de92….png) 100% 100% no-repeat var(--color-secondary);
+    overflow: hidden;
+    background-size: cover;
 }
 
 .form-signin .checkbox {
@@ -36,4 +37,8 @@ body {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.form-signin a {
+    color: #e0e2e6;
 }
