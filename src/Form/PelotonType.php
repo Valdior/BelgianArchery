@@ -24,7 +24,11 @@ class PelotonType extends AbstractType
                 'choice_label' => function ($value, $key, $index) {
                     return $value;
                 }))
-            ->add('startTime', DateTimeType::class)
+            ->add('startTime', DateTimeType::class, [
+                'required' => true, 
+                'label' => 'peloton.starttime', 
+                'widget' => 'single_text'
+                ])
         ;
     }
 

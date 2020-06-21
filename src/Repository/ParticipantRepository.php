@@ -25,6 +25,7 @@ class ParticipantRepository extends ServiceEntityRepository
      */
     public function ranking($idTournament): Array
     {
+        // TODO : Vérifié ce qu'il se passe lorsque qu'on a plusieurs peloton à des distances différentes 
         return $this->createQueryBuilder('p')
                     ->leftJoin('p.peloton', 'pel')
                     ->andWhere('pel.tournament = :val')

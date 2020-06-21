@@ -6,19 +6,20 @@ import {French} from 'flatpickr/dist/l10n/fr.js';
  */
 export default class DatePicker extends HTMLInputElement 
 {
-    connectedCallback () {
-        this.flatpickr = flatpickr(this, {
-          locale: French,
-          altFormat: 'd F Y',
-          dateFormat: "Y-m-d",
-          altInput: true,
-          enableTime: false,
-        })
-    }
-    
-      disconnectedCallback () {
-        this.flatpickr.destroy()
-    }    
+  connectedCallback () {
+    this.flatpickr = flatpickr(this, {
+      locale: French,
+      altFormat: 'd F Y',
+      dateFormat: "d F Y",
+      altInput: true,
+      enableTime: false,
+      defaultDate: "today",
+    })
+  }
+  
+  disconnectedCallback () {
+    this.flatpickr.destroy()
+  }    
 }
     
 global.customElements.define('date-picker', DatePicker, {extends: 'input'})

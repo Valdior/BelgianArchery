@@ -30,6 +30,7 @@ class PelotonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            
             $peloton->setTournament($tournament);
             $entityManager->persist($peloton);
             $entityManager->flush();
