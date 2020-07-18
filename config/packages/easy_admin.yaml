@@ -5,6 +5,7 @@ easy_admin:
         - App\Entity\Affiliate
         - App\Entity\Archer
         - App\Entity\ArcherCategory
+        - App\Entity\BlogPost
         - App\Entity\Club
         - App\Entity\League
         - App\Entity\Location

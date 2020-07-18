@@ -1,0 +1,8 @@
+tournament:
+    organizer: 'Organisateur'
+    startdate: 'Date de début'
+    enddate: 'Date de fin'
+    type: 'Type'
+    create: 'Créer une compétition'
+peloton:
+    add: 'Ajouter un peloton'

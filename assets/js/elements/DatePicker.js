@@ -10,10 +10,10 @@ export default class DatePicker extends HTMLInputElement
     this.flatpickr = flatpickr(this, {
       locale: French,
       altFormat: 'd F Y',
-      dateFormat: "d F Y",
+      dateFormat: "Y-m-d",
       altInput: true,
       enableTime: false,
-      defaultDate: "today",
+      //defaultDate: "today",
     })
   }
   

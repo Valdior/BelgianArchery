@@ -12,12 +12,30 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('street')
-            ->add('number')
-            ->add('locality')
-            ->add('postalcode')
-            ->add('city')
+            ->add('title', null, [
+                'required' => true, 
+                'label' => 'location.title', 
+                ])
+            ->add('street', null, [
+                'required' => true, 
+                'label' => 'location.street', 
+                ])
+            ->add('number', null, [
+                'required' => true, 
+                'label' => 'location.number', 
+                ])
+            ->add('locality', null, [
+                'required' => true, 
+                'label' => 'location.locality', 
+                ])
+            ->add('postalcode', null, [
+                'required' => true, 
+                'label' => 'location.postalcode', 
+                ])
+            ->add('city', null, [
+                'required' => true, 
+                'label' => 'location.city', 
+                ])
         ;
     }
 
@@ -25,6 +43,7 @@ class LocationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Location::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

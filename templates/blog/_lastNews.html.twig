@@ -1,0 +1,20 @@
+
+{% for post in posts %}
+<article class="card">
+    <div class="card-body">
+        <h3 class="card-title"><a href="{{ path('blog_show', {'slug' : post.slug}) }}">{{ post.title }}</a></h3>
+        <p >
+        {% apply markdown_to_html %}
+            {{ post.description }}
+        {% endapply %}
+        </p>
+    </div>
+    <div class="card-footer text-muted">
+        publié le {{  post.publishedOn ? post.publishedOn | date('d-m-Y H:i:s') : '' }}
+    </div>
+</article>
+{% else %}
+<article>        
+    <p colspan="4">no records found</p>
+</article>
+{% endfor %}

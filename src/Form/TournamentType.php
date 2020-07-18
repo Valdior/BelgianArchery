@@ -30,18 +30,33 @@ class TournamentType extends AbstractType
                 ])
             ->add('type', ChoiceType::class, array(
                 'required' => true,
-                'label' => 'Indoor/Outdoor',
-                'placeholder' => 'Choissisez le type de compétition',
+                'label' => 'tournament.type', 
+                'placeholder' => 'tournament.type.placeholder',
                 'choices'  => Tournament::getTypeList(),
                 'choice_label' => function ($value, $key, $index) {
                     return $value;
                 },
             ))
-            ->add('title')
-            ->add('organizer')
-            ->add('contact')
-            ->add('information')
-            ->add('location', LocationType::class)
+            ->add('title', null, [
+                'required' => true, 
+                'label' => 'tournament.title', 
+                ])
+            ->add('organizer', null, [
+                'required' => true, 
+                'label' => 'tournament.organizer', 
+                ])
+            ->add('contact', null, [
+                'required' => true, 
+                'label' => 'tournament.contact', 
+                ])
+            ->add('information', null, [
+                'required' => true, 
+                'label' => 'tournament.information', 
+                ])
+            ->add('location', LocationType::class, [
+                'required' => true, 
+                'label' => 'tournament.location', 
+                ])
         ;
     }
 
@@ -52,6 +67,7 @@ class TournamentType extends AbstractType
             'csrf_token_id' => 'tournament',
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
+            'translation_domain' => 'forms'
         ]);
     }
 }

@@ -1,0 +1,18 @@
+tournament:
+    title: Nom de la compétition
+    organizer: Organisateur
+    startdate: Date de début
+    enddate: Date de fin
+    type: Indoor/Outdoor      
+    contact: Contact
+    information: Information complémentaire
+    location: Adresse
+    type.placeholder: Choissisez le type de compétition
+
+location:
+    title: Titre de l'adresse
+    locality: Lieux dit
+    street: Rue
+    number: Numéro
+    postalcode: Code Postal
+    city: Ville

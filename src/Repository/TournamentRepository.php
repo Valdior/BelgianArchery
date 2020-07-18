@@ -32,7 +32,22 @@ class TournamentRepository extends ServiceEntityRepository
         }
 
 
-        return $query->getQuery();
+        return $query->getQuery()
+                        ->getResult();
+    }
+
+    public function nextTournaments($max)
+    {
+        $query = $this->createQueryBuilder('t')
+                        ->Where('t.endDate >= :date')
+                        ->setParameter(':date', new \Datetime())
+                        ->setMaxResults($max)
+                            ;
+
+
+        return $query->getQuery()
+                        ->getResult()
+                    ;
     }
 
     // /**

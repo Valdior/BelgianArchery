@@ -21,7 +21,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "codemirror": "^5.55.0",
         "flatpickr": "^4.6.3",
+        "marked": "^1.1.0",
+        "preact": "^10.4.5",
         "select2": "^4.0.13"
     }
 }

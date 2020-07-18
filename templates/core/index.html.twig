@@ -5,15 +5,34 @@
 {% block body_content %}
 <section class="jumbotron text-center">
     <i class="fad fa-bullseye-arrow fa-10x"></i>
-    <div class="container-xl">
-        <h1>I'm an Archer</h1>
-        <p class="lead text-muted">Ce site est encore en phase de développement, la suite arrive bientôt <i class="fad fa-smile-wink fa-2x"></i></i></p>
-    </div>
 </section>
 
 <section class="container-xl">
     <div class="row">
         {{ include('layout/message.html.twig') }}
+
+        <section class="col-xl-8 col-md-12">    
+        {{ render(controller('App\\Controller\\BlogPostController::lastNews', {'max' : 5})) }}
+        </section>
+
+        <aside class="col">
+            {{ render(controller('App\\Controller\\TournamentController::agenda', {'max' : 2})) }}
+        </aside>
     </div>
 </section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+document.addEventListener("DOMContentLoaded",  () => {
+    const rows = document.querySelectorAll("tr[data-href]");
+    rows.forEach(row => {
+        row.addEventListener("click", () => {
+            window.location.href = row.dataset.href;
+        })
+    })
+})
+</script>
 {% endblock %}

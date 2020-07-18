@@ -15,9 +15,7 @@ class CoreController extends AbstractController
      */
     public function index()
     {
-        return $this->render('core/index.html.twig', [
-            'controller_name' => 'CoreController',
-        ]);
+        return $this->render('core/index.html.twig');
     }
 
     /**

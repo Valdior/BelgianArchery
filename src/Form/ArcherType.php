@@ -19,7 +19,7 @@ class ArcherType extends AbstractType
         $builder
             ->add('lastname', TextType::class, ['required' => true, 'label' => 'form.archer.lastname'])
             ->add('firstname', TextType::class, ['required' => true, 'label' => 'form.archer.firstname'])
-            ->add('birthdate', BirthdayType::class, ['required' => false, 'label' => 'form.archer.birthdate'])
+            ->add('birthdate', BirthdayType::class, ['required' => false, 'label' => 'form.archer.birthdate', 'widget' => 'single_text'])
             ->add('gender', ChoiceType::class, array(
                 'required' => false,
                 'label' => 'form.archer.gender',

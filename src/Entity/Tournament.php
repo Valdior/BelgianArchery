@@ -14,8 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tournament
 {
-    public const TYPE_INDOOR = 'indoor';
-    public const TYPE_OUTDOOR = 'outdoor';
+    /**
+     * @return Array
+     */
+    public const TYPE = [
+        0 => 'indoor'
+        , 1 => 'outdoor' 
+    ];
 
     /**
      * @ORM\Id()
@@ -91,7 +96,7 @@ class Tournament
 
     public static function getTypeList()
     {
-        return [self::TYPE_INDOOR, self::TYPE_OUTDOOR];
+        return self::TYPE;
     }  
 
     public function getId(): ?int

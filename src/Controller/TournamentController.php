@@ -125,4 +125,13 @@ class TournamentController extends AbstractController
         $participants = $repo->ranking($tournament->getId());
         return $this->render('tournament/ranking.html.twig', ['participants' => $participants]);
     }
+
+    /**
+     * @Route("/agenda", name="tournament_agenda", methods="GET")
+     */
+    public function agenda($max = 5, TournamentRepository $repo)
+    {
+        $tournaments = $repo->nextTournaments($max);
+        return $this->render('tournament/_agenda.html.twig', ['tournaments' => $tournaments]);
+    }
 }

@@ -513,7 +513,7 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setWebsite('http://whitebear.be');
         $manager->persist($club);
 
-        $this->addReference(self::CLUB_ITW, $club);        
+        $this->addReference(self::CLUB_ITW, $club);
 
         $club = new Club();
         $club->setName("Les Archers du Val de Blegny");

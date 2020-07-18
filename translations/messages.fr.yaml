@@ -52,14 +52,11 @@ profile:
     edit:
         submit: 'Mettre à jour'
     flash:
-        updated: 'Le profil a été mis à jour.'
-
+        updated: 'Votre profil a été mis à jour.'
 tournament:
-    organizer: 'Organisateur'
-    startdate: 'Date de début'
-    enddate: 'Date de fin'
-    type: 'Type'
-    create: 'Créer une compétition'
+    create: Créer une compétition
 peloton:
-    add: 'Ajouter un peloton'
+    add: Ajouter un peloton
+
+
 
