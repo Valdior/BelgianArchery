@@ -62,6 +62,11 @@
                         <td>{{ peloton.type }}</td>
                         <td><a href="{{ path('peloton_show', {'slug': tournament.slug, 'id' : peloton.id}) }}" >Show</a>
                         {% if is_granted('ROLE_ARCHER') %}
+                            {# Si je suis déjà inscrit, il faut prévoir une désinscription de l'archer,
+                                mais d'où pourrai provenir l'information comme quoi la personne est déjà inscrite ?
+                                
+                                Quid de l'admin
+                            #}
                             <a href="{{ path('peloton_register', {'slug': tournament.slug, 'id' : peloton.id}) }}">S'inscrire</a>
                         {% endif %}
                         </td>
@@ -83,7 +88,6 @@
     {% if date(tournament.endDate) < date("now") %}
     {{ render(controller('App\\Controller\\TournamentController::ranking', {'slug': tournament.slug})) }}
     {% endif %}
-
 
     <div class="btn-group" role="group" aria-label="Basic example">
         <a href="{{ path('tournament_index') }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>

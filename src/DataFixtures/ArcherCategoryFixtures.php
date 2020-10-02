@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\ArcherCategory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class ArcherCategoryFixtures extends Fixture
 {

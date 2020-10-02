@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\BlogPost;
 use App\DataFixtures\UserFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class BlogPostFixtures extends Fixture implements DependentFixtureInterface

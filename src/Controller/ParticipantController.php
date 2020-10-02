@@ -33,5 +33,19 @@ class ParticipantController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{id}/unregister", name="unregister", methods={"DELETE"})
+     */
+    public function unregister(Request $request, Participant $participant)
+    {
+        if ($this->isCsrfTokenValid('unregister'.$participant->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($participant);
+            $entityManager->flush();
+            
+            $this->addFlash('success', 'Vous vous êtes désinscrit du peloton');
+        }
+    }
 }
  

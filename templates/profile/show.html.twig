@@ -85,28 +85,6 @@
                                         {{ archer.gender }}
                                     </div>
                                 </div>
-                                <hr />
-                                
-                                
-                                <div class="row">
-                                    <div class="col-sm-3 col-md-2 col-5">
-                                        <label style="font-weight:bold;">Club Actuel</label>
-                                    </div>
-                                    <div class="col-md-8 col-6">
-                                        {% if affiliate is defined %}
-                                        {{ affiliate.club.fullname }}
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-3 col-md-2 col-5">
-                                        <label style="font-weight:bold;">Status</label>
-                                    </div>
-                                    <div class="col-md-8 col-6">
-                                        {{ archer.status }}
-                                    </div>
-                                </div>      
 
                                 <hr />   
                                 <div class="row">
@@ -131,6 +109,26 @@
                                         {{ affiliate.affiliatenumber }}
                                         {% endif %}
                                     </div>
+                                </div>                                
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">Club</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {% if affiliate is defined %}
+                                        {{ affiliate.club.fullname }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">Status</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ archer.status }}
+                                    </div>
                                 </div>
                                 <hr />
                                 <div class="row">
@@ -138,9 +136,7 @@
                                         <label style="font-weight:bold;">Default Category</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {% if affiliate is defined %}
-                                        {{ affiliate.club.fullname }}
-                                        {% endif %}
+                                        {{ archer.defaultcategory }}
                                     </div>
                                 </div>
                                 <hr />
@@ -158,11 +154,10 @@
                                         <label style="font-weight:bold;">Brevets</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {{ archer.defaultcategory }}
+                                        
                                     </div>
                                 </div>
                             </div>
-
                             <div class="tab-pane fade" id="otherinfo" role="tabpanel" aria-labelledby="OtherInfo-tab">
                                 <div class="row">
                                 <div class="col-sm-3 col-md-2 col-5">
@@ -184,6 +179,7 @@
         <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">        
             <a class="btn btn-primary" href="{{ path('app_forgot_password_request') }}"><i class="fad fa-key"></i> Change password</a>
             <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> Edit profil</a>
+            <a class="btn btn-secondary" href="{{ path('archer_affiliation', {'id': archer.id}) }}"><i class="fad fa-bow-arrow"></i> Demande transfert</a>
         </div>
         {% else %}
         <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">        

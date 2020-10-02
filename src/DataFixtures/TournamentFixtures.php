@@ -6,7 +6,7 @@ use App\Entity\Tournament;
 use App\DataFixtures\ClubFixtures;
 use App\DataFixtures\LocationFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class TournamentFixtures extends Fixture implements DependentFixtureInterface
@@ -42,7 +42,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("05/16/2020"));
         $tournament->setEndDate(new \DateTime("05/17/2020"));
-        $tournament->setType(Tournament::TYPE_OUTDOOR);
+        $tournament->setType(Tournament::TYPE[1]);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ITW));
         $tournament->setTitle("ITW : Jeunes - 50-30 - 2x25");
         $tournament->setLocation($this->getReference(LocationFixtures::LOC_ITW));

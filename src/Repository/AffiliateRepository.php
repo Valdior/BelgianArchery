@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Archer;
 use App\Entity\Affiliate;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**

@@ -7,7 +7,7 @@ use App\DataFixtures\ArcherFixtures;
 use App\DataFixtures\PelotonFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\ArcherCategoryFixtures;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ParticipantFixtures extends Fixture implements DependentFixtureInterface

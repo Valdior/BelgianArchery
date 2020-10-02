@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\League;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Lead|null find($id, $lockMode = null, $lockVersion = null)

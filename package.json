@@ -23,8 +23,10 @@
     "dependencies": {
         "codemirror": "^5.55.0",
         "flatpickr": "^4.6.3",
+        "mailer": "^0.6.7",
         "marked": "^1.1.0",
         "preact": "^10.4.5",
-        "select2": "^4.0.13"
+        "select2": "^4.0.13",
+        "yarn": "^1.22.10"
     }
 }

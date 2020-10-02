@@ -6,7 +6,7 @@ use App\Entity\Club;
 use App\DataFixtures\ArcherFixtures;
 use App\DataFixtures\RegionFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ClubFixtures extends Fixture implements DependentFixtureInterface

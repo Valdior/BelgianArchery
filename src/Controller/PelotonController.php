@@ -101,24 +101,25 @@ class PelotonController extends AbstractController
         $participant = new Participant();
         $participant->setPeloton($peloton);
         $participant->setArcher($this->getUser()->getArcher());
-        $form = $this->createForm(ParticipantType::class, $participant, ['user' => $this->getUser(), 'disabled_archer' => !in_array('ROLE_ADMIN', $this->getUser()->getRoles())]);
+        $form = $this->createForm(ParticipantType::class, $participant, ['user' => $this->getUser()
+                                                                        , 'disabled_archer' => !in_array('ROLE_ADMIN', $this->getUser()->getRoles())
+                                                                        , 'is_already_registered' => $participantRepository->isAlreadyRegistered($participant)]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) { 
-            $value = $participantRepository->isAlreadyRegistered($participant);
-
-            if($value)
-            {
-                $this->addFlash('warning', '"' . $participant->getArcher()->getFullname() . '" est déjà inscrit à ce peloton');
-            }
-            else
-            {
+            // TODO : message à améliorer => Vous avez été inscrit au Peloton Ou si admin, le nom de la personne inscrite
+            // if($value)
+            // {
+            //     $this->addFlash('warning', '"' . $participant->getArcher()->getFullname() . '" est déjà inscrit à ce peloton');
+            // }
+            // else
+            // {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($participant);
                 $em->flush();
 
                 $this->addFlash('success', '"' . $participant->getArcher()->getFullname() . '" a été inscrit à ce peloton');
-            }
+            // }
 
             return $this->redirectToRoute('tournament_show', ['slug' => $peloton->getTournament()->getSlug()]);
         }        

@@ -20,17 +20,20 @@ class ParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {        
         $user = $options['user'];
-        $roles = $user->getRoles();
-        if (in_array('ROLE_ADMIN', $roles)) 
-            $builder->add('archer', EntityType::class, array(
-                'class' => Archer::class,
-            ));
+        // $roles = $user->getRoles();
+        // if (in_array('ROLE_ADMIN', $roles)) 
+        //     $builder->add('archer', EntityType::class, array(
+        //         'class' => Archer::class,
+        //     ));
         $builder
-            // ->add('archer', EntityType::class, array(
-            //     'class' => Archer::class,
-            //     'disabled' => $options['disabled_archer'],
-            //     'required' => true
-            // ))
+            ->add('archer', EntityType::class, array(
+                'placeholder' => 'Choissisez l\'archer',
+                'class' => Archer::class,
+                'disabled' => $options['disabled_archer'],
+                'data' => $user->getArcher(),
+                'attr' => ['data-select' => 'true'],
+                'required' => true
+            ))
             ->add('category', EntityType::class, [
                 'class'  => ArcherCategory::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -77,8 +80,10 @@ class ParticipantType extends AbstractType
             'csrf_token_id'   => 'participant_item',
             'user'  => User::class,
             'disabled_archer'  => true,
+            'is_already_registered' => false,
         ]);
 
         $resolver->setAllowedTypes('disabled_archer', 'bool');
+        $resolver->setAllowedTypes('is_already_registered', 'bool');
     }
 }

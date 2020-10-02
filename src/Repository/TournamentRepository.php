@@ -5,7 +5,7 @@ namespace App\Repository;
 use Doctrine\ORM;
 use App\Entity\Tournament;
 use App\Entity\TournamentSearch;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
