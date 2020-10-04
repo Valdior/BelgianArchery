@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use Doctrine\ORM;
 use App\Entity\Tournament;
 use App\Entity\TournamentSearch;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,7 +31,8 @@ class TournamentRepository extends ServiceEntityRepository
         }
 
 
-        return $query->getQuery()
+        return $query->orderBy('t.startDate', 'ASC')
+                        ->getQuery()
                         ->getResult();
     }
 

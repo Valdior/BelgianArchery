@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Type\DateTimeType;
 use App\Entity\Peloton;
+use App\Entity\Tournament;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,20 +15,25 @@ class PelotonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $tournament = $options['tournament'];
+
         $builder
-            ->add('maxParticipant', IntegerType::class)
+            ->add('maxParticipant', IntegerType::class, [
+                'label' => 'peloton.max_participant'
+            ])
             ->add('type', ChoiceType::class, array(
                 'required' => true,
-                'label' => 'Type de tir',
-                'placeholder' => 'Choissisez le type de tir',
+                'label' => 'peloton.type',
+                'placeholder' => 'peloton.type_placeholder',
                 'choices'  => Peloton::getTypeList(),
                 'choice_label' => function ($value, $key, $index) {
                     return $value;
                 }))
             ->add('startTime', DateTimeType::class, [
                 'required' => true, 
-                'label' => 'peloton.starttime', 
+                'label' => 'peloton.start_time', 
                 'widget' => 'single_text'
+                // 'min'
                 ])
         ;
     }
@@ -36,6 +42,11 @@ class PelotonType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Peloton::class,
+            'csrf_token_id' => 'peloton',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'translation_domain' => 'forms',
+            'tournament'  => Tournament::class,
         ]);
     }
 }

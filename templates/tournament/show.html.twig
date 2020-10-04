@@ -61,7 +61,8 @@
                         <td>{{ peloton.starttime|date('d-M H:i') }}</td>
                         <td>{{ peloton.type }}</td>
                         <td><a href="{{ path('peloton_show', {'slug': tournament.slug, 'id' : peloton.id}) }}" >Show</a>
-                        {% if is_granted('ROLE_ARCHER') %}
+                        {% if (is_granted('ROLE_ARCHER') and date(peloton.starttime) > date("now")) 
+                                or is_granted('ROLE_ADMIN') %}
                             {# Si je suis déjà inscrit, il faut prévoir une désinscription de l'archer,
                                 mais d'où pourrai provenir l'information comme quoi la personne est déjà inscrite ?
                                 

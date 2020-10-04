@@ -5,13 +5,10 @@ namespace App\Form;
 use App\Entity\Tournament;
 use App\Form\LocationType;
 use App\Type\DateType;
-use App\Form\AttachmentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TournamentType extends AbstractType
 {

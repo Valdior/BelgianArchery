@@ -50,7 +50,7 @@ class Tournament
     private $organizer;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Peloton", mappedBy="tournament")
+     * @ORM\OneToMany(targetEntity="App\Entity\Peloton", mappedBy="tournament", cascade={"remove"})
      */
     private $pelotons;
 
@@ -214,7 +214,7 @@ class Tournament
         $this->title = $title;
 
         $slugger = new AsciiSlugger();
-        $this->setSlug($slugger->slug($this->title));
+        $this->setSlug($slugger->slug($this->getId() . $this->title));
 
         return $this;
     }

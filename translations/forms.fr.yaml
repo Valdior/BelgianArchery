@@ -9,6 +9,13 @@ tournament:
     location: Adresse
     type.placeholder: Choissisez le type de compétition
 
+peloton:
+    max_participant: 'Maximum de participants'
+    type: 'Type de compétition'
+    type_placeholder: 'Choissisez le type de compétition'
+    start_time: 'Début du tir'
+    save: 'Créer le peloton'
+
 location:
     title: Titre de l'adresse
     locality: Lieux dit

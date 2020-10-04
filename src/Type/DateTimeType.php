@@ -10,6 +10,7 @@ class DateTimeType extends \Symfony\Component\Form\Extension\Core\Type\DateTimeT
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
+        
         $resolver->setDefaults([
             'html5' => false,
             'widget' => 'single_text',

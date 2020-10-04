@@ -7,7 +7,6 @@ use App\Form\PelotonType;
 use App\Entity\Tournament;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
-use App\Repository\PelotonRepository;
 use App\Repository\ParticipantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +24,7 @@ class PelotonController extends AbstractController
     public function new(Request $request, Tournament $tournament): Response
     {
         $peloton = new Peloton();
-        $form = $this->createForm(PelotonType::class, $peloton);
+        $form = $this->createForm(PelotonType::class, $peloton, ['tournament' => $tournament]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

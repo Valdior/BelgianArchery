@@ -46,7 +46,7 @@ class Peloton
     private $tournament;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="peloton")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="peloton", cascade={"remove"})
      */
     private $participants;
 

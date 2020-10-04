@@ -6,10 +6,12 @@
             <td>{{ tournament.type }}</td>
             <td>{% if tournament.organizer is not null %} {{ tournament.organizer.acronym }}{% endif %}</td>
             <td>{{ tournament.title }}</td>
-            {% if is_granted('ROLE_ADMIN') %}
-            <td>                
-                <a href="{{ path('tournament_edit', {'slug': tournament.slug}) }}">edit</a>
-            </td>
+            {% if showInfo %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <td>                
+                    <a href="{{ path('tournament_edit', {'slug': tournament.slug}) }}">edit</a>
+                </td>
+                {% endif %} 
             {% endif %} 
         </tr>
     {% else %}
