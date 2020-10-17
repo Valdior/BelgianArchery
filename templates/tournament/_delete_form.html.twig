@@ -4,7 +4,7 @@
     Ceci aura comme différence de prévenir tous les archers de l'annulation de l'évènement
 #}
 
-<form method="post" action="{{ path('tournament_delete', {'slug': tournament.slug}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('tournament_delete', {'id': tournament.id, 'slug': tournament.slug}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ tournament.id) }}">
     <button class="btn btn-danger"><i class="fad fa-trash-alt"></i> {% trans %}form.tournament.delete{% endtrans %}</button>

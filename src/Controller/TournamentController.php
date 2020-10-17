@@ -67,10 +67,19 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="tournament_show", methods={"GET"})
+     * @Route("/{slug}-{id}", name="tournament_show", methods={"GET"}, requirements={"slug": "[a-z0-9\-]*"})
+     * @return Response
      */
-    public function show(Tournament $tournament): Response
+    public function show(Tournament $tournament, string $slug): Response
     {
+        if($tournament->getSlug() !== $slug)
+        {
+            return $this->redirectToRoute('tournament_show', [
+                'id' => $tournament->getId(),
+                'slug' => $tournament->getSlug()
+            ],  301);
+        }
+
         return $this->render('tournament/show.html.twig', [
             'current_menu' => 'tournament',
             'tournament' => $tournament,
@@ -78,7 +87,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/edit", name="tournament_edit", methods={"GET","POST"})
+     * @Route("/{id}-{slug}/edit", name="tournament_edit", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
      */
     public function edit(Request $request, Tournament $tournament): Response
     {
@@ -99,7 +108,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="tournament_delete", methods={"DELETE"})
+     * @Route("/{id}-{slug}", name="tournament_delete", methods={"DELETE"}, requirements={"slug": "[a-z0-9\-]*"})
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Tournament not found")
      */
     public function delete(Request $request, Tournament $tournament): Response
@@ -116,7 +125,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/ranking", name="tournament_ranking", methods="GET")
+     * @Route("/{id}-{slug}/ranking", name="tournament_ranking", methods="GET", requirements={"slug": "[a-z0-9\-]*"})
      */
     public function ranking(Tournament $tournament, ParticipantRepository $repo)
     {

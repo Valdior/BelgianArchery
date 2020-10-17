@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TournamentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Tournament
 {
@@ -85,7 +86,7 @@ class Tournament
         $this->type     = 0;
         $this->pelotons = new ArrayCollection();
         $this->startDate = new \DateTime();
-        $this->endDate = new \DateTime();
+        $this->endDate  = new \DateTime();
         $this->attachments = new ArrayCollection();
     }
 
@@ -213,9 +214,6 @@ class Tournament
     {
         $this->title = $title;
 
-        $slugger = new AsciiSlugger();
-        $this->setSlug($slugger->slug($this->getId() . $this->title));
-
         return $this;
     }
 
@@ -265,5 +263,14 @@ class Tournament
         $this->information = $information;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSlugValue()
+    {
+        $slugger = new AsciiSlugger();
+        $this->setSlug($slugger->slug($this->title));
     }
 }

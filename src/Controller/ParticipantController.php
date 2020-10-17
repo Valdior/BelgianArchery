@@ -24,7 +24,10 @@ class ParticipantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('tournament_show', ['slug' => $participant->getPeloton()->getTournament()->getSlug()]);
+            $tournament = $participant->getPeloton()->getTournament();
+
+            return $this->redirectToRoute('tournament_show', ['id' => $tournament->getId(),
+                                                            'slug' => $tournament->getSlug()]);
         }
 
         return $this->render('participant/edit.html.twig', [

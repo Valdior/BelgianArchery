@@ -36,7 +36,7 @@ class PelotonController extends AbstractController
 
             $this->addFlash('success', 'Création d\'un nouveau peloton pour la compétition');
 
-            return $this->redirectToRoute('tournament_show', ['slug' => $tournament->getSlug()]);
+            return $this->redirectToRoute('tournament_show', ['id' => $tournament->getId(), 'slug' => $tournament->getSlug()]);
         }
 
         return $this->render('peloton/new.html.twig', [
@@ -120,7 +120,7 @@ class PelotonController extends AbstractController
                 $this->addFlash('success', '"' . $participant->getArcher()->getFullname() . '" a été inscrit à ce peloton');
             // }
 
-            return $this->redirectToRoute('tournament_show', ['slug' => $peloton->getTournament()->getSlug()]);
+            return $this->redirectToRoute('tournament_show', ['id' => $peloton->getTournament()->getId(), 'slug' => $peloton->getTournament()->getSlug()]);
         }        
 
         return $this->render('participant/register.html.twig', [

@@ -55,13 +55,6 @@ class ParticipantRepository extends ServiceEntityRepository
                     ->getScalarResult()
                 ;
 
-        if(count($result) > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return count($result) > 0;
     }
 }

@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <tbody>
     {% for tournament in tournaments %}
-        <tr data-href="{{ path('tournament_show', {'slug': tournament.slug}) }}">
+        <tr data-href="{{ path('tournament_show', {'id': tournament.id, 'slug': tournament.slug}) }}">
             <td class="table-primary">{{ tournament.startDate ? tournament.startDate|date('d-m') : '' }} au {{ tournament.endDate ? tournament.endDate|date('d-m') : '' }}</td>
             <td>{{ tournament.type }}</td>
             <td>{% if tournament.organizer is not null %} {{ tournament.organizer.acronym }}{% endif %}</td>
@@ -9,7 +9,7 @@
             {% if showInfo %}
                 {% if is_granted('ROLE_ADMIN') %}
                 <td>                
-                    <a href="{{ path('tournament_edit', {'slug': tournament.slug}) }}">edit</a>
+                    <a href="{{ path('tournament_edit', {'id': tournament.id, 'slug': tournament.slug}) }}">{% trans %}common.edit{% endtrans %}</a>
                 </td>
                 {% endif %} 
             {% endif %} 

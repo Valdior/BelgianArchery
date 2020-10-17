@@ -93,7 +93,7 @@
     <div class="btn-group" role="group" aria-label="Basic example">
         <a href="{{ path('tournament_index') }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('tournament_edit', {'slug': tournament.slug}) }}" class="btn btn-info"><i class="fad fa-pencil"></i> {% trans %}common.edit{% endtrans %}</a>
+        <a href="{{ path('tournament_edit', {'id': tournament.id, 'slug': tournament.slug}) }}" class="btn btn-info"><i class="fad fa-pencil"></i> {% trans %}common.edit{% endtrans %}</a>
         {{ include('tournament/_delete_form.html.twig') }}
     {% endif %}
     </div>

@@ -56,7 +56,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('tournament_show', {'slug': peloton.tournament.slug}) }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
+    <a href="{{ path('tournament_show', {'id': peloton.tournament.id, 'slug': peloton.tournament.slug}) }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
     
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('peloton_edit', {'slug' : peloton.tournament.slug, 'id': peloton.id}) }}">edit</a>
