@@ -27,4 +27,5 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /.vscode/
+/.env.dev
 .env.dev

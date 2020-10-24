@@ -30,7 +30,6 @@ class TournamentRepository extends ServiceEntityRepository
                             ->setParameter(':type', array_search($search->getType(), TournamentSearch::getTypeList()));
         }
 
-
         return $query->orderBy('t.startDate', 'ASC')
                         ->getQuery()
                         ->getResult();
@@ -44,38 +43,8 @@ class TournamentRepository extends ServiceEntityRepository
                         ->setMaxResults($max)
                             ;
 
-
         return $query->getQuery()
                         ->getResult()
                     ;
     }
-
-    // /**
-    //  * @return Tournament[] Returns an array of Tournament objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Tournament
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

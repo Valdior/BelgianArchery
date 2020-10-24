@@ -65,6 +65,9 @@ class Affiliate
         return $this;
     }
 
+    /**
+     * @return ?\DateTimeInterface
+     */
     public function getAffiliateSince(): ?\DateTimeInterface
     {
         return $this->affiliateSince;

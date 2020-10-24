@@ -22,6 +22,15 @@
 </section>
 {% endblock %}
 
+{% block stylesheets %}
+<style>
+tr[data-href]
+{
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+
 {% block javascripts %}
 {{ parent() }}
 

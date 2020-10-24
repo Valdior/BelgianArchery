@@ -49,6 +49,10 @@ class ParticipantController extends AbstractController
             
             $this->addFlash('success', 'Vous vous êtes désinscrit du peloton');
         }
+        
+        return $this->redirectToRoute('peloton_show', ['id_tournament' => $participant->getPeloton()->getTournament()->getId(), 
+                                                        'slug' => $participant->getPeloton()->getTournament()->getSlug(),
+                                                        'id' => $participant->getPeloton()->getId() ]);
     }
 }
  

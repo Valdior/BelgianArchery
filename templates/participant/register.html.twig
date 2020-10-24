@@ -7,5 +7,5 @@
 
     {{ include('participant/_form.html.twig') }}
 
-    <a href="{{ path('tournament_show', {'id': tournament.id, 'slug': peloton.tournament.slug}) }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
+    <a href="{{ path('tournament_show', {'id': peloton.tournament.id, 'slug': peloton.tournament.slug}) }}" class="btn btn-light"><i class="fad fa-chevron-left"></i> {% trans %}common.back_list{% endtrans %}</a>
 {% endblock %}

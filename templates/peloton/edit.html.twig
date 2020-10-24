@@ -7,7 +7,7 @@
 
     {{ include('peloton/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('peloton_show', {'slug' : peloton.tournament.slug , 'id': peloton.id }) }}">{% trans %}common.back_list{% endtrans %}</a>
+    <a href="{{ path('peloton_show', {'id_tournament': peloton.tournament.id, 'slug' : peloton.tournament.slug , 'id': peloton.id }) }}">{% trans %}common.back_list{% endtrans %}</a>
 
     {{ include('peloton/_delete_form.html.twig') }}
 {% endblock %}

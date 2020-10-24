@@ -21,7 +21,7 @@ class AffiliateRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Affiliate[] Returns an array of Affiliate objects
+     * @return Affiliate Returns an array of Affiliate objects
      */
     public function findLastAffiliationByArcher(Archer $archer)
     {

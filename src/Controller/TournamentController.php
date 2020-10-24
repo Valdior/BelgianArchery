@@ -67,7 +67,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}-{id}", name="tournament_show", methods={"GET"}, requirements={"slug": "[a-z0-9\-]*"})
+     * @Route("/{id}-{slug}", name="tournament_show", methods={"GET"}, requirements={"slug": "[a-zA-Z0-9\-]*"})
      * @return Response
      */
     public function show(Tournament $tournament, string $slug): Response
@@ -87,7 +87,7 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}-{slug}/edit", name="tournament_edit", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
+     * @Route("/{id}-{slug}/edit", name="tournament_edit", methods={"GET","POST"}, requirements={"slug": "[a-zA-Z0-9\-]*"})
      */
     public function edit(Request $request, Tournament $tournament): Response
     {

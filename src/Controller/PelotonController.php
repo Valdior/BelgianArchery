@@ -12,9 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\ParticipationHelper;
 
 /**
- * @Route("/tournament/{slug}/peloton")
+ * @Route("/tournament/{id_tournament}-{slug}/peloton")
  */
 class PelotonController extends AbstractController
 {
@@ -24,6 +25,8 @@ class PelotonController extends AbstractController
     public function new(Request $request, Tournament $tournament): Response
     {
         $peloton = new Peloton();
+        $peloton->setStartTime($tournament->getStartDate());
+        dump($peloton);
         $form = $this->createForm(PelotonType::class, $peloton, ['tournament' => $tournament]);
         $form->handleRequest($request);
 
@@ -49,10 +52,12 @@ class PelotonController extends AbstractController
     /**
      * @Route("/{id}", name="peloton_show", methods={"GET"})
      */
-    public function show(Peloton $peloton): Response
+    public function show(Peloton $peloton, ParticipationHelper $helper): Response
     {
+        $user = $this->getUser();
         return $this->render('peloton/show.html.twig', [
             'peloton' => $peloton,
+            'isAlreadyRegistered' => $user == null ? false : $helper->isAlreadyRegistered($user->getArcher(), $peloton)            
         ]);
     }
 
@@ -67,7 +72,9 @@ class PelotonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('peloton_show', ['slug' => $peloton->getTournament()->getSlug(), 'id' => $peloton->getId()]);
+            return $this->redirectToRoute('peloton_show', ['id_tournament' => $peloton->getTournament()->getId(),
+                                                            'slug' => $peloton->getTournament()->getSlug(), 
+                                                            'id' => $peloton->getId()]);
         }
 
         return $this->render('peloton/edit.html.twig', [
@@ -89,20 +96,79 @@ class PelotonController extends AbstractController
             $this->addFlash('success', 'Le peloton a bien été supprimé');
         }
 
-        return $this->redirectToRoute('peloton_index', ['slug' => $tournament->getSlug()]);
+        return $this->redirectToRoute('tournament_show', ['id' => $tournament->getId(), 'slug' => $tournament->getSlug()]);
     }
 
     /**
      * @Route("/{id}/register", name="peloton_register", methods="GET|POST")
      */
-    public function register(Request $request, Peloton $peloton, ParticipantRepository $participantRepository): Response
+    public function register(Request $request, Peloton $peloton, ParticipationHelper $helper): Response
     {
+        if($helper->isAlreadyRegistered($this->getUser()->getArcher(), $peloton))
+        {
+            $this->addFlash('warning', 'Vous êtes déjà inscrit à ce peloton');
+            return $this->redirectToRoute('tournament_show', ['id' => $peloton->getTournament()->getId(), 'slug' => $peloton->getTournament()->getSlug()]);
+        }
+
         $participant = new Participant();
         $participant->setPeloton($peloton);
         $participant->setArcher($this->getUser()->getArcher());
+        $participant->setCategory($this->getUser()->getArcher()->getDefaultCategory());
+        $form = $this->createForm(ParticipantType::class, $participant, ['user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($participant);
+            $em->flush();
+
+            $this->addFlash('success', 'Vous avez été inscrit à ce peloton');
+
+            return $this->redirectToRoute('tournament_show', ['id' => $peloton->getTournament()->getId(), 'slug' => $peloton->getTournament()->getSlug()]);
+        }        
+
+        return $this->render('participant/register.html.twig', [
+            'participant' => $participant,
+            'peloton' => $peloton,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/unregister", name="peloton_unregister", methods="GET|POST")
+     */
+    public function unregister(Request $request, Peloton $peloton, ParticipationHelper $helper): Response
+    {
+        if(!$helper->isAlreadyRegistered($this->getUser()->getArcher(), $peloton))
+        {
+            $this->addFlash('warning', 'Vous ne pouvez pas vous désincrire à un peloton auquel vous n\'êtes pas déjà inscrit');
+            return $this->redirectToRoute('tournament_show', ['id' => $peloton->getTournament()->getId(), 'slug' => $peloton->getTournament()->getSlug()]);
+        }
+
+        $helper->cancelParticipation($this->getUser()->getArcher(), $peloton);
+        $this->addFlash('success', 'Vous avez bien été désinscrit du peloton');
+
+        return $this->redirectToRoute('tournament_show', ['id' => $peloton->getTournament()->getId(), 'slug' => $peloton->getTournament()->getSlug()]);
+    }
+
+    /**
+     * @Route("/{id}/registerAnother", name="peloton_register_another", methods="GET|POST")
+     */
+    public function registerAnother(Request $request, Peloton $peloton, ParticipationHelper $helper): Response
+    {
+        if($helper->isAlreadyRegistered($this->getUser()->getArcher(), $peloton))
+        {
+            return $this->redirectToRoute('tournament_show', ['id' => $peloton->getTournament()->getId(), 'slug' => $peloton->getTournament()->getSlug()]);
+        }
+
+        $participant = new Participant();
+        $participant->setPeloton($peloton);
+        $participant->setArcher($this->getUser()->getArcher());
+        $participant->setCategory($this->getUser()->getArcher()->getDefaultCategory());
         $form = $this->createForm(ParticipantType::class, $participant, ['user' => $this->getUser()
                                                                         , 'disabled_archer' => !in_array('ROLE_ADMIN', $this->getUser()->getRoles())
-                                                                        , 'is_already_registered' => $participantRepository->isAlreadyRegistered($participant)]);
+                                                                        ]);
+                                                                        // , 'is_already_registered' => $participantRepository->isAlreadyRegistered($participant)]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) { 

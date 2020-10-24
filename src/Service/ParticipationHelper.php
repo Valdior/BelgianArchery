@@ -3,12 +3,14 @@
 namespace App\Service;
 
 use App\Entity\Archer;
+use App\Entity\Peloton;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ParticipationHelper
 {
     /**
-     * @return AffiliateRepository
+     * @return ParticipantRepository
      */
     private $repo;
 
@@ -23,5 +25,18 @@ class ParticipationHelper
         $this->em = $em;
     }
 
-    
+    public function isAlreadyRegistered(Archer $archer, Peloton $peloton)
+    {
+        return $this->repo->isAlreadyRegistered($archer, $peloton);
+    }
+
+    public function cancelParticipation(Archer $archer, Peloton $peloton)
+    {
+        if($this->isAlreadyRegistered($archer, $peloton))
+        {
+            $participant = $this->repo->getParticipant($archer, $peloton);
+            $this->em->remove($participant);
+            $this->em->flush();            
+        }
+    }
 }

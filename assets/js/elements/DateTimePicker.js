@@ -13,7 +13,7 @@ export default class DateTimePicker extends HTMLInputElement
       dateFormat: "Y-m-d H:i",
       enableTime: true,
       time_24hr: true,
-      defaultDate: "today",
+      // defaultDate: "today",
       minDate: "today",
       minuteIncrement: 30,
       altInput: true,

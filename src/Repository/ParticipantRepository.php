@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Archer;
 use App\Entity\Participant;
+use App\Entity\Peloton;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -42,15 +44,33 @@ class ParticipantRepository extends ServiceEntityRepository
 
     /**
      * @var boolean
-     * @return boolean Checks whether the participant is already booked in the peleton
+     * @return boolean Checks whether the participant is already registered in the peleton
      */
-    public function isAlreadyRegistered(Participant $participant)
+    public function getParticipant(Archer $archer, Peloton $peloton)
     {
         $result = $this->createQueryBuilder('p')
                     ->andWhere('p.archer = :archer')
-                        ->setParameter('archer', $participant->getArcher())
+                        ->setParameter('archer', $archer)
                     ->andWhere('p.peloton = :peloton')
-                        ->setParameter('peloton', $participant->getPeloton())
+                        ->setParameter('peloton', $peloton)
+                    ->getQuery()
+                    ->getOneOrNullResult()
+                ;
+
+        return $result;
+    }
+
+    /**
+     * @var boolean
+     * @return boolean Checks whether the participant is already registered in the peleton
+     */
+    public function isAlreadyRegistered(Archer $archer, Peloton $peloton)
+    {
+        $result = $this->createQueryBuilder('p')
+                    ->andWhere('p.archer = :archer')
+                        ->setParameter('archer', $archer)
+                    ->andWhere('p.peloton = :peloton')
+                        ->setParameter('peloton', $peloton)
                     ->getQuery()
                     ->getScalarResult()
                 ;
